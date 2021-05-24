@@ -1,9 +1,9 @@
 		<!-- Sidebar -->
-		<div class="sidebar sidebar-style-2" data-background-color="dark2">	
+		<div class="sidebar sidebar-style-2" data-background-color="dark2">
 			<div class="sidebar-wrapper scrollbar scrollbar-inner">
 				<div class="sidebar-content">
 
-				{% if request.user.is_authenticated %}	
+				{% if request.user.is_authenticated %}
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
 							<img src="/static/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
@@ -37,6 +37,7 @@
 						</div>
 					</div>
 					<ul class="nav nav-primary">
+						<!-- Dashboard -->
 						<li class="nav-item {% if 'index' in segment %} active {% endif %}">
 							<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
 								<i class="fas fa-home"></i>
@@ -53,12 +54,38 @@
 								</ul>
 							</div>
 						</li>
+						<!-- Mini icon -->
 						<li class="nav-section">
 							<span class="sidebar-mini-icon">
 								<i class="fa fa-ellipsis-h"></i>
 							</span>
 							<h4 class="text-section">Components</h4>
 						</li>
+
+						<!-- News -->
+						<li class="nav-item">
+							<a data-toggle="collapse" href="#news">
+								<i class="fas fa-newspaper"></i>
+								<p>News</p>
+								<span class="caret"></span>
+							</a>
+							<div class="collapse" id="news">
+								<ul class="nav nav-collapse">
+									<li>
+										<a href="#">
+											<span class="sub-item">Today's news</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="sub-item">Business and markets</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+
+						<!-- Component selections -->
 						<li class="nav-item {% if 'ui-' in segment %} active {% endif %}">
 							<a data-toggle="collapse" href="#base">
 								<i class="fas fa-layer-group"></i>
@@ -237,6 +264,7 @@
 								<span class="badge badge-success">4</span>
 							</a>
 						</li>
+						<!-- Menu levels -->
 						<li class="nav-item">
 							<a data-toggle="collapse" href="#submenu">
 								<i class="fas fa-bars"></i>
@@ -290,23 +318,22 @@
 						</li>
 						<li class="mx-4 mt-2">
                             <a target="_blank"
-                               href="https://appseed.us/admin-dashboards/django-dashboard-atlantis-dark-pro" 
+                               href="https://appseed.us/admin-dashboards/django-dashboard-atlantis-dark-pro"
                                class="btn btn-danger btn-block">
-                                <span class="btn-label mr-2"> <i class="fa fa-rocket"></i> </span>PRO Version</a> 
+                                <span class="btn-label mr-2"> <i class="fa fa-rocket"></i> </span>PRO Version</a>
 						</li>
 					</ul>
 				{% else %}
 					<ul class="nav nav-primary">
 						<li class="mx-4 mt-2">
                             <a target="_blank"
-                               href="https://appseed.us/admin-dashboards/django-dashboard-atlantis-dark-pro" 
+                               href="https://appseed.us/admin-dashboards/django-dashboard-atlantis-dark-pro"
                                class="btn btn-danger btn-block">
-                                <span class="btn-label mr-2"> <i class="fa fa-rocket"></i> </span>PRO Version</a> 
+                                <span class="btn-label mr-2"> <i class="fa fa-rocket"></i> </span>PRO Version</a>
 						</li>
 					</ul>
-				{% endif %}	
+				{% endif %}
 				</div>
 			</div>
 		</div>
         <!-- End Sidebar -->
-        

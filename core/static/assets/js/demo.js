@@ -92,7 +92,7 @@ var statisticsChart = new Chart(ctx, {
 		}]
 	},
 	options : {
-		responsive: true, 
+		responsive: true,
 		maintainAspectRatio: false,
 		legend: {
 			display: false
@@ -131,20 +131,20 @@ var statisticsChart = new Chart(ctx, {
 					fontStyle: "500"
 				}
 			}]
-		}, 
-		legendCallback: function(chart) { 
-			var text = []; 
-			text.push('<ul class="' + chart.id + '-legend html-legend">'); 
-			for (var i = 0; i < chart.data.datasets.length; i++) { 
-				text.push('<li><span style="background-color:' + chart.data.datasets[i].legendColor + '"></span>'); 
-				if (chart.data.datasets[i].label) { 
-					text.push(chart.data.datasets[i].label); 
-				} 
-				text.push('</li>'); 
-			} 
-			text.push('</ul>'); 
-			return text.join(''); 
-		}  
+		},
+		legendCallback: function(chart) {
+			var text = [];
+			text.push('<ul class="' + chart.id + '-legend html-legend">');
+			for (var i = 0; i < chart.data.datasets.length; i++) {
+				text.push('<li><span style="background-color:' + chart.data.datasets[i].legendColor + '"></span>');
+				if (chart.data.datasets[i].label) {
+					text.push(chart.data.datasets[i].label);
+				}
+				text.push('</li>');
+			}
+			text.push('</ul>');
+			return text.join('');
+		}
 	}
 });
 
