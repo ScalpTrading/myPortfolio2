@@ -16,7 +16,7 @@
 	<script>
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], 
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
 			urls: ['/static/assets/css/fonts.min.css']},
 			active: function() {
 				sessionStorage.fonts = true;
@@ -27,6 +27,7 @@
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="/static/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/assets/css/atlantis.min.css">
+	<link rel="stylesheet" href="/static/assets/css/styles.css">
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="/static/assets/css/demo.css">
@@ -43,19 +44,19 @@
         {% include 'includes/sidebar.html' %}
 
 		<div class="main-panel">
-			
+
 			{% block content %}{% endblock content %}
 
 			{% include 'includes/footer.html' %}
 
 		</div>
-        
+
 		{% if request.user.is_authenticated %}
 
 			<!-- Custom template | don't include it in your project! -->
 			{% include 'includes/configuration-plugin.html' %}
 
-		{% endif %}		
+		{% endif %}
 
 	</div>
 
