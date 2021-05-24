@@ -14,7 +14,7 @@
 				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 					<div>
 						<h2 class="text-white pb-2 fw-bold">Today's top stories</h2>
-						<h5 class="text-white op-7 mb-2">Add buttons here</h5>
+            <h5 class="text-white op-7 mb-2">Curated news articles by region</h5>
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
 						<a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
@@ -34,18 +34,34 @@
             <!-- Header -->
             <div class="card-header">
 							<div class="card-head-row card-tools-still-right">
-								<h4 class="card-title">Need to enter linkage here (TODO)</h4>
+								<a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_US_gen_news" onclick="load_news('US_gen')">US</a>
+                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_gen_news" onclick="load_news('UK_gen')">UK</a>
 								<div class="card-tools">
 									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
 								</div>
 							</div>
-							<p class="card-category">Description (TODO)</p>
 						</div>
-            <!-- Body -->
-
-            <!-- News -->
+            <!-- Body: news section -->
+            <!-- US general news -->
             <ul class="list-group list-group-flush" id="US_general_news" style="display: block";>
-              {% for src, title, url, publishedAt, img in world_articles %}
+              {% for src, title, url, publishedAt, img, content in US_gen_articles %}
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+                    </div>
+                    <div class="col-3" >
+                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" alt=""></a>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+
+            <!-- UK general news -->
+            <ul class="list-group list-group-flush" id="UK_general_news" style="display: none";>
+              {% for src, title, url, publishedAt, img, content in UK_gen_articles %}
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-9">
@@ -59,6 +75,7 @@
                 </li>
               {% endfor %}
             </ul>
+
   				</div>
 
         </div>
@@ -198,6 +215,29 @@
 	<script src="/static/assets/js/demo.js"></script>
 
 	<script>
+
+    // Show region-specific news
+    function load_news(region) {
+
+      if (region == 'US_gen') {
+        // Adjust news articles
+        document.querySelector('#US_general_news').style.display = 'block'
+        document.querySelector('#UK_general_news').style.display = 'none'
+        // Adjust buttons
+        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+      }
+
+      else if (region == 'UK_gen') {
+        // News news articles
+        document.querySelector('#US_general_news').style.display = 'none'
+        document.querySelector('#UK_general_news').style.display = 'block'
+        // Adjust buttons
+        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+      }
+    }
+
 		Circles.create({
 			id:'circles-1',
 			radius:45,
