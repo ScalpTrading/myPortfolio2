@@ -1,0 +1,134 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Finance {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+
+		<!-- Page banner -->
+		<div class="page-inner">
+			<div class="page-header">
+				<h4 class="page-title">Finanace</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-home">
+						<a href="#">
+							<i class="flaticon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="flaticon-right-arrow"></i>
+					</li>
+					<li class="nav-item">
+						<a href="#">Finanace</a>
+					</li>
+				</ul>
+			</div>
+			<!-- Page banner END -->
+
+			<div class="row">
+
+				<!-- LHS widget -->
+				<div class="col-5">
+					<div class="card">
+
+						<!-- Card header -->
+						<div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+								<div class="card-title">Compare markets</div>
+								<div class="card-tools">
+									<a href="#" class="btn btn-info btn-round btn-sm mr-1">US</a>
+									<a href="#" class="btn btn-info btn-border btn-round btn-sm mr-1">US ETFs</a>
+								</div>
+							</div>
+						</div>
+
+						<!-- Card contents -->
+						<div class="card-body mt--3">
+							<div class="row">
+								<div class="table-responsive table-hover table-sales">
+									<table class="table">
+										<tbody>
+											{% for companyName, latestPrice, changePercent, ticker in US_tickers %}
+												<tr class="mb-2 mt-2">
+													<td>
+														<p class="card-subtitle"><small class="text-muted">{{companyName}}</small></p>
+				                    {% if changePercent > 0 %}
+				                      <p class="card-title text-success">{{latestPrice}}<small class="text-success">USD</small></p>
+				                    {% else %}
+				                      <p class="card-title text-danger">{{latestPrice}}<small class="text-danger">USD</small></p>
+				                    {% endif %}
+													</td>
+													<td class="text-right">
+														{% if changePercent > 0 %}
+				                      <p class="card-text text-success" style="text-align: right">{{changePercent}}%</p>
+				                    {% else %}
+				                      <p class="card-text text-danger" style="text-align: right">{{changePercent}}%</p>
+				                    {% endif %}
+													</td>
+												</tr>
+											{% endfor %}
+
+										</tbody>
+
+									</table>
+
+								</div>
+
+							</div>
+
+						</div>
+
+
+
+
+
+
+
+						<!-- US tickers -->
+	          <!-- <ul class="list-group list-group-flush" id="default_US" style="display: block;">
+	            {% for companyName, latestPrice, changePercent, ticker in US_tickers %} -->
+	              <!-- *** Deleted hidden form submission here -->
+								<!-- <li class="list-group-item bg-clr-hover" onclick="#">
+	                <div class="row">
+	                  <div class="col-9">
+	                    <p class="card-subtitle"><small class="text-muted">{{companyName}}</small></p>
+	                    {% if changePercent > 0 %}
+	                      <p class="card-title text-success">{{latestPrice}}<small class="text-success">USD</small></p>
+	                    {% else %}
+	                      <p class="card-title text-danger">{{latestPrice}}<small class="text-danger">USD</small></p>
+	                    {% endif %}
+	                  </div>
+	                  <div class="col-3 align-self-center">
+	                    {% if changePercent > 0 %}
+	                      <p class="card-text text-success" style="text-align: right">{{changePercent}}%</p>
+	                    {% else %}
+	                      <p class="card-text text-danger" style="text-align: right">{{changePercent}}%</p>
+	                    {% endif %}
+	                  </div>
+	                </div>
+	              </li>
+	            {% endfor %}
+	          </ul> -->
+						<!-- US tickers END -->
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

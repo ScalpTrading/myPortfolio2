@@ -16,7 +16,7 @@ urlpatterns = [
 
     # Added pages
     path("news", views.news, name="news"),
-    path("finance", views.finanace, name="finance"),
+    path("finance", views.finance, name="finance"),
     path("test", views.test, name="test"),
 
 

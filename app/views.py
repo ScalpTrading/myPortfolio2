@@ -45,11 +45,13 @@ def pages(request):
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))
 
+###############################################################################
+
 @login_required(login_url="/login/")
 def news(request):
 
     # Number of articles to load
-    article_nos = 15
+    article_nos = 10
 
     # US general news
     US_gen_articles = news_lookup("US_general")["articles"]
@@ -224,6 +226,42 @@ def news(request):
     }
 
     html_template = loader.get_template( 'news.html' )
+    return HttpResponse(html_template.render(context, request))
+
+@login_required(login_url="/login")
+def finance(request):
+
+    # Default stocks, obtain data via IEX Cloud batch request
+    default_US_tickers = ["AAPL","MSFT","AMZN","GOOGL","NFLX","BRK.B","TSLA","JPM","V","NVDA","DIS","T","CRM","SE","PINS","ROKU"]
+    default_US_ETFs = ["VOO", "VTI", "VXUS", "VEA", "VWO", "QQQ", "QQQJ"]
+
+    # Default US tickers
+    try:
+        default_US_instruments = iex_batch_lookup(default_US_tickers)
+        default_US_companyNames = default_US_instruments["companyNames"]
+        default_US_latestPrices = default_US_instruments["latestPrices"]
+        default_US_changePercent = default_US_instruments["changePercents"]
+        US_tickers = zip(default_US_companyNames, default_US_latestPrices, default_US_changePercent, default_US_tickers)
+    except:
+        US_tickers = None
+
+    # Default US ETFs
+    try:
+        default_US_instruments = iex_batch_lookup(default_US_ETFs)
+        default_US_ETFs_companyNames = default_US_instruments["companyNames"]
+        default_US_ETFs_latestPrices = default_US_instruments["latestPrices"]
+        default_US_ETFs_changePercents = default_US_instruments["changePercents"]
+        US_ETFs_tickers = zip(default_US_ETFs_companyNames, default_US_ETFs_latestPrices, default_US_ETFs_changePercents, default_US_ETFs)
+    except:
+        US_ETFs_tickers = None
+
+    context = {
+        "segment": "finance",
+        "US_tickers": US_tickers,
+        "US_ETFs_tickers": US_ETFs_tickers,
+    }
+
+    html_template = loader.get_template( 'finance.html' )
     return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
