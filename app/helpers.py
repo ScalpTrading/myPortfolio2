@@ -156,11 +156,14 @@ def news_lookup(region):
             response = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey={api_key}")
         elif region == "UK_business":
             response = requests.get(f"https://newsapi.org/v2/top-headlines?country=gb&category=business&apiKey={api_key}")
+        elif region == "US_technology":
+            response = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey={api_key}")
+        elif region == "UK_technology":
+            response = requests.get(f"https://newsapi.org/v2/top-headlines?country=gb&category=technology&apiKey={api_key}")
         elif region == "US_general":
             response = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={api_key}")
         elif region == "UK_general":
             response = requests.get(f"https://newsapi.org/v2/top-headlines?country=gb&apiKey={api_key}")
-
 
     except:
         return None

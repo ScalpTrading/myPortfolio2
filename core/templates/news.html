@@ -14,7 +14,9 @@
 				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 					<div>
 						<h2 class="text-white pb-2 fw-bold">Today's top stories</h2>
-            <h5 class="text-white op-7 mb-2">Curated news articles by region</h5>
+            <!-- <h5 class="text-white op-7 mb-2">Region:</h5> -->
+            <a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_US_news" onclick="load_news('US_gen')">US</a>
+            <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_news" onclick="load_news('UK_gen')">UK</a>
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
 						<a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
@@ -29,22 +31,54 @@
 			<div class="row mt--2">
         <div class="col-md-12">
 
-          <!-- Card -->
-          <div class="card full-height">
+          <!-- Card: US news-->
+          <div class="card full-height" id="US_news" style="display: block;">
             <!-- Header -->
             <div class="card-header">
 							<div class="card-head-row card-tools-still-right">
-								<a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_US_gen_news" onclick="load_news('US_gen')">US</a>
-                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_gen_news" onclick="load_news('UK_gen')">UK</a>
+                <a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_US_gen_news" onclick="load_news('US_gen')">General</a>
+                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_bz_news" onclick="load_news('US_bz')">Business</a>
+                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_tech_news" onclick="load_news('US_tech')">Technology</a>
 								<div class="card-tools">
-									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
+									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card" onClick="window.location.reload();"><span class="fa fa-sync-alt"></span></button>
 								</div>
 							</div>
 						</div>
-            <!-- Body: news section -->
-            <!-- US general news -->
-            <ul class="list-group list-group-flush" id="US_general_news" style="display: block";>
-              {% for src, title, url, publishedAt, img, content in US_gen_articles %}
+            <!-- Body: US general news -->
+            <ul class="list-group list-group-flush" id="US_gen_news" style="display: block;">
+              {% for src, title, url, publishedAt, img in US_gen_articles %}
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+                    </div>
+                    <div class="col-3" >
+                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" alt=""></a>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+            <!-- Body: US business news -->
+            <ul class="list-group list-group-flush" id="US_bz_news" style="display: none;">
+              {% for src, title, url, publishedAt, img in US_bz_articles %}
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+                    </div>
+                    <div class="col-3" >
+                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" alt=""></a>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+            <!-- Body: US tech news -->
+            <ul class="list-group list-group-flush" id="US_tech_news" style="display: none;">
+              {% for src, title, url, publishedAt, img in US_tech_articles %}
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-9">
@@ -59,9 +93,56 @@
               {% endfor %}
             </ul>
 
-            <!-- UK general news -->
-            <ul class="list-group list-group-flush" id="UK_general_news" style="display: none";>
-              {% for src, title, url, publishedAt, img, content in UK_gen_articles %}
+          </div>
+
+          <!-- Card: UK news-->
+          <div class="card full-height" id="UK_news" style="display: none;">
+            <!-- Header -->
+            <div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+                <a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_UK_gen_news" onclick="load_news('UK_gen')">General</a>
+                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_bz_news" onclick="load_news('UK_bz')">Business</a>
+                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_tech_news" onclick="load_news('UK_tech')">Technology</a>
+								<div class="card-tools">
+									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card" onClick="window.location.reload();"><span class="fa fa-sync-alt"></span></button>
+								</div>
+							</div>
+						</div>
+            <!-- Body: UK general news section -->
+            <ul class="list-group list-group-flush" id="UK_gen_news">
+              {% for src, title, url, publishedAt, img in UK_gen_articles %}
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+                    </div>
+                    <div class="col-3" >
+                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'"class="img-responsive fit-image rounded" alt=""></a>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+            <!-- Body: UK business news section -->
+            <ul class="list-group list-group-flush" id="UK_bz_news">
+              {% for src, title, url, publishedAt, img in UK_bz_articles %}
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+                    </div>
+                    <div class="col-3" >
+                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'"class="img-responsive fit-image rounded" alt=""></a>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+            <!-- Body: UK tech news section -->
+            <ul class="list-group list-group-flush" id="UK_tech_news">
+              {% for src, title, url, publishedAt, img in UK_tech_articles %}
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-9">
@@ -76,7 +157,7 @@
               {% endfor %}
             </ul>
 
-  				</div>
+          </div>
 
         </div>
 			</div>
@@ -221,21 +302,99 @@
 
       if (region == 'US_gen') {
         // Adjust news articles
-        document.querySelector('#US_general_news').style.display = 'block'
-        document.querySelector('#UK_general_news').style.display = 'none'
+        document.querySelector('#US_news').style.display = 'block'
+        document.querySelector('#UK_news').style.display = 'none'
+        document.querySelector('#US_gen_news').style.display = 'block'
+        document.querySelector('#US_bz_news').style.display = 'none'
+        document.querySelector('#US_tech_news').style.display = 'none'
+
+
         // Adjust buttons
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+      }
+
+      if (region == 'US_bz') {
+        // Adjust news articles
+        document.querySelector('#US_news').style.display = 'block'
+        document.querySelector('#UK_news').style.display = 'none'
+        document.querySelector('#US_gen_news').style.display = 'none'
+        document.querySelector('#US_bz_news').style.display = 'block'
+        document.querySelector('#US_tech_news').style.display = 'none'
+
+
+        // Adjust buttons
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+      }
+
+      if (region == 'US_tech') {
+        // Adjust news articles
+        document.querySelector('#US_news').style.display = 'block'
+        document.querySelector('#UK_news').style.display = 'none'
+        document.querySelector('#US_gen_news').style.display = 'none'
+        document.querySelector('#US_bz_news').style.display = 'none'
+        document.querySelector('#US_tech_news').style.display = 'block'
+
+        // Adjust buttons
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
       }
 
       else if (region == 'UK_gen') {
         // News news articles
-        document.querySelector('#US_general_news').style.display = 'none'
-        document.querySelector('#UK_general_news').style.display = 'block'
+        document.querySelector('#US_news').style.display = 'none'
+        document.querySelector('#UK_news').style.display = 'block'
+        document.querySelector('#UK_gen_news').style.display = 'block'
+        document.querySelector('#UK_bz_news').style.display = 'none'
+        document.querySelector('#UK_tech_news').style.display = 'none'
         // Adjust buttons
-        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
       }
+
+      else if (region == 'UK_bz') {
+        // News news articles
+        document.querySelector('#US_news').style.display = 'none'
+        document.querySelector('#UK_news').style.display = 'block'
+        document.querySelector('#UK_gen_news').style.display = 'none'
+        document.querySelector('#UK_bz_news').style.display = 'block'
+        document.querySelector('#UK_tech_news').style.display = 'none'
+        // Adjust buttons
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+      }
+
+      else if (region == 'UK_tech') {
+        // News news articles
+        document.querySelector('#US_news').style.display = 'none'
+        document.querySelector('#UK_news').style.display = 'block'
+        document.querySelector('#UK_gen_news').style.display = 'none'
+        document.querySelector('#UK_bz_news').style.display = 'none'
+        document.querySelector('#UK_tech_news').style.display = 'block'
+        // Adjust buttons
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+      }
+
     }
 
 		Circles.create({

@@ -14,8 +14,11 @@ urlpatterns = [
     # Matches any html file
      # re_path(r'^.*\.*', views.pages, name='pages'),
 
-    # News page
+    # Added pages
     path("news", views.news, name="news"),
+    path("finance", views.finanace, name="finance"),
     path("test", views.test, name="test"),
+
+
 
 ]

@@ -65,28 +65,19 @@
 						</li>
 
 						<!-- News -->
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#news">
+						<li class="nav-item {% if 'news' in segment %} active {% endif %}" >
+							<a href="{% url 'news' %}">
 								<i class="fas fa-newspaper"></i>
 								<p>News</p>
-								<span class="caret"></span>
 							</a>
-							<div class="collapse" id="news">
-								<ul class="nav nav-collapse">
-									<li>
-										<!-- TODO: Add views.py linkage -->
-										<a href="{% url 'news' %}">
-											<span class="sub-item">Today's top stories</span>
-										</a>
-									</li>
-									<li>
-										<!-- TODO -->
-										<a href="#">
-											<span class="sub-item">Business and markets</span>
-										</a>
-									</li>
-								</ul>
-							</div>
+						</li>
+
+						<!-- Finance -->
+						<li class="nav-item {% if 'finance' in segment %} active {% endif %}" >
+							<a href="{% url 'finance' %}">
+								<i class="far fa-chart-bar"></i>
+								<p>Finance</p>
+							</a>
 						</li>
 
 						<!-- Base -->

@@ -49,7 +49,7 @@ def pages(request):
 def news(request):
 
     # Number of articles to load
-    article_nos = 20
+    article_nos = 15
 
     # US general news
     US_gen_articles = news_lookup("US_general")["articles"]
@@ -58,7 +58,6 @@ def news(request):
     US_gen_article_urls = []
     US_gen_article_publishedAts = []
     US_gen_article_imgs = []
-    US_gen_article_contents = []
 
     for i in range(article_nos):
         f = US_gen_articles[i]
@@ -66,7 +65,6 @@ def news(request):
         US_gen_article_titles.append(f["title"])
         US_gen_article_urls.append(f["url"])
         US_gen_article_imgs.append(f["urlToImage"])
-        US_gen_article_contents.append(f["content"])
         # Parse delta time since article's publishing time
         dt = maya.parse(f["publishedAt"]).datetime().replace(microsecond=0, second=0, minute=0)
         now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
@@ -78,7 +76,7 @@ def news(request):
             dt_difference = str(now-dt)[0]+" hours ago"
         US_gen_article_publishedAts.append(dt_difference)
 
-    US_gen_articles = zip(US_gen_article_sources, US_gen_article_titles, US_gen_article_urls, US_gen_article_publishedAts, US_gen_article_imgs, US_gen_article_contents)
+    US_gen_articles = zip(US_gen_article_sources, US_gen_article_titles, US_gen_article_urls, US_gen_article_publishedAts, US_gen_article_imgs)
 
     # UK general news
     UK_gen_articles = news_lookup("UK_general")["articles"]
@@ -87,7 +85,6 @@ def news(request):
     UK_gen_article_urls = []
     UK_gen_article_publishedAts = []
     UK_gen_article_imgs = []
-    UK_gen_article_contents = []
 
     for i in range(article_nos):
         f = UK_gen_articles[i]
@@ -95,7 +92,6 @@ def news(request):
         UK_gen_article_titles.append(f["title"])
         UK_gen_article_urls.append(f["url"])
         UK_gen_article_imgs.append(f["urlToImage"])
-        UK_gen_article_contents.append(f["content"])
         # Parse delta time since article's publishing time
         dt = maya.parse(f["publishedAt"]).datetime().replace(microsecond=0, second=0, minute=0)
         now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
@@ -107,11 +103,124 @@ def news(request):
             dt_difference = str(now-dt)[0]+" hours ago"
         UK_gen_article_publishedAts.append(dt_difference)
 
-    UK_gen_articles = zip(UK_gen_article_sources, UK_gen_article_titles, UK_gen_article_urls, UK_gen_article_publishedAts, UK_gen_article_imgs, UK_gen_article_contents)
+    UK_gen_articles = zip(UK_gen_article_sources, UK_gen_article_titles, UK_gen_article_urls, UK_gen_article_publishedAts, UK_gen_article_imgs)
+
+    # US business news
+    US_bz_articles = news_lookup("US_business")["articles"]
+    US_bz_article_sources = []
+    US_bz_article_titles = []
+    US_bz_article_urls = []
+    US_bz_article_publishedAts = []
+    US_bz_article_imgs = []
+
+    for i in range(article_nos):
+        f = US_bz_articles[i]
+        US_bz_article_sources.append(f["source"]["name"])
+        US_bz_article_titles.append(f["title"])
+        US_bz_article_urls.append(f["url"])
+        US_bz_article_imgs.append(f["urlToImage"])
+        # Parse delta time since article's publishing time
+        dt = maya.parse(f["publishedAt"]).datetime().replace(microsecond=0, second=0, minute=0)
+        now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
+        if str(now-dt)[0] == "0":
+            dt_difference = "Less than an hour ago"
+        elif str(now-dt)[0] == "1":
+            dt_difference = "1 hour ago"
+        else:
+            dt_difference = str(now-dt)[0]+" hours ago"
+        US_bz_article_publishedAts.append(dt_difference)
+
+    US_bz_articles = zip(US_bz_article_sources, US_bz_article_titles, US_bz_article_urls, US_bz_article_publishedAts, US_bz_article_imgs)
+
+    # UK business news
+    UK_bz_articles = news_lookup("UK_business")["articles"]
+    UK_bz_article_sources = []
+    UK_bz_article_titles = []
+    UK_bz_article_urls = []
+    UK_bz_article_publishedAts = []
+    UK_bz_article_imgs = []
+
+    for i in range(article_nos):
+        f = UK_bz_articles[i]
+        UK_bz_article_sources.append(f["source"]["name"])
+        UK_bz_article_titles.append(f["title"])
+        UK_bz_article_urls.append(f["url"])
+        UK_bz_article_imgs.append(f["urlToImage"])
+        # Parse delta time since article's publishing time
+        dt = maya.parse(f["publishedAt"]).datetime().replace(microsecond=0, second=0, minute=0)
+        now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
+        if str(now-dt)[0] == "0":
+            dt_difference = "Less than an hour ago"
+        elif str(now-dt)[0] == "1":
+            dt_difference = "1 hour ago"
+        else:
+            dt_difference = str(now-dt)[0]+" hours ago"
+        UK_bz_article_publishedAts.append(dt_difference)
+
+    UK_bz_articles = zip(UK_bz_article_sources, UK_bz_article_titles, UK_bz_article_urls, UK_bz_article_publishedAts, UK_bz_article_imgs)
+
+    # US technology news
+    US_tech_articles = news_lookup("US_technology")["articles"]
+    US_tech_article_sources = []
+    US_tech_article_titles = []
+    US_tech_article_urls = []
+    US_tech_article_publishedAts = []
+    US_tech_article_imgs = []
+
+    for i in range(article_nos):
+        f = US_tech_articles[i]
+        US_tech_article_sources.append(f["source"]["name"])
+        US_tech_article_titles.append(f["title"])
+        US_tech_article_urls.append(f["url"])
+        US_tech_article_imgs.append(f["urlToImage"])
+        # Parse delta time since article's publishing time
+        dt = maya.parse(f["publishedAt"]).datetime().replace(microsecond=0, second=0, minute=0)
+        now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
+        if str(now-dt)[0] == "0":
+            dt_difference = "Less than an hour ago"
+        elif str(now-dt)[0] == "1":
+            dt_difference = "1 hour ago"
+        else:
+            dt_difference = str(now-dt)[0]+" hours ago"
+        US_tech_article_publishedAts.append(dt_difference)
+
+    US_tech_articles = zip(US_tech_article_sources, US_tech_article_titles, US_tech_article_urls, US_tech_article_publishedAts, US_tech_article_imgs)
+
+    # UK technology news
+    UK_tech_articles = news_lookup("UK_technology")["articles"]
+    UK_tech_article_sources = []
+    UK_tech_article_titles = []
+    UK_tech_article_urls = []
+    UK_tech_article_publishedAts = []
+    UK_tech_article_imgs = []
+
+    for i in range(article_nos):
+        f = UK_tech_articles[i]
+        UK_tech_article_sources.append(f["source"]["name"])
+        UK_tech_article_titles.append(f["title"])
+        UK_tech_article_urls.append(f["url"])
+        UK_tech_article_imgs.append(f["urlToImage"])
+        # Parse delta time since article's publishing time
+        dt = maya.parse(f["publishedAt"]).datetime().replace(microsecond=0, second=0, minute=0)
+        now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
+        if str(now-dt)[0] == "0":
+            dt_difference = "Less than an hour ago"
+        elif str(now-dt)[0] == "1":
+            dt_difference = "1 hour ago"
+        else:
+            dt_difference = str(now-dt)[0]+" hours ago"
+        UK_tech_article_publishedAts.append(dt_difference)
+
+    UK_tech_articles = zip(UK_tech_article_sources, UK_tech_article_titles, UK_tech_article_urls, UK_tech_article_publishedAts, UK_tech_article_imgs)
 
     context = {
+        "segment": "news",
         "US_gen_articles": US_gen_articles,
         "UK_gen_articles": UK_gen_articles,
+        "US_bz_articles": US_bz_articles,
+        "UK_bz_articles": UK_bz_articles,
+        "US_tech_articles": US_tech_articles,
+        "UK_tech_articles": UK_tech_articles,
     }
 
     html_template = loader.get_template( 'news.html' )
