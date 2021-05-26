@@ -32,7 +32,7 @@
 			<div class="row">
 
 				<!-- LHS widget -->
-				<div class="col-5">
+				<div class="col-4">
 					<div class="card">
 
 						<!-- Card header -->
@@ -40,87 +40,63 @@
 							<div class="card-head-row card-tools-still-right">
 								<div class="card-title">Compare markets</div>
 								<div class="card-tools">
-									<a href="#" class="btn btn-info btn-round btn-sm mr-1">US</a>
-									<a href="#" class="btn btn-info btn-border btn-round btn-sm mr-1">US ETFs</a>
+									<a class="btn btn-info btn-round btn-sm mr-1" id="btn_US_tickers" onclick="load_tickers('US')">US</a>
+									<a class="btn btn-info btn-border btn-round btn-sm mr-1" id="btn_ETFs_tickers" onclick="load_tickers('ETFs')">ETFs</a>
 								</div>
 							</div>
 						</div>
 
 						<!-- Card contents -->
-						<div class="card-body mt--3">
-							<div class="row">
-								<div class="table-responsive table-hover table-sales">
-									<table class="table">
-										<tbody>
-											{% for companyName, latestPrice, changePercent, ticker in US_tickers %}
-												<tr class="mb-2 mt-2">
-													<td>
-														<p class="card-subtitle"><small class="text-muted">{{companyName}}</small></p>
-				                    {% if changePercent > 0 %}
-				                      <p class="card-title text-success">{{latestPrice}}<small class="text-success">USD</small></p>
-				                    {% else %}
-				                      <p class="card-title text-danger">{{latestPrice}}<small class="text-danger">USD</small></p>
-				                    {% endif %}
-													</td>
-													<td class="text-right">
-														{% if changePercent > 0 %}
-				                      <p class="card-text text-success" style="text-align: right">{{changePercent}}%</p>
-				                    {% else %}
-				                      <p class="card-text text-danger" style="text-align: right">{{changePercent}}%</p>
-				                    {% endif %}
-													</td>
-												</tr>
-											{% endfor %}
-
-										</tbody>
-
-									</table>
-
+						<div class="card-body" id="default_US" style="display: block;">
+							{% for companyName, latestPrice, changePercent, ticker in US_tickers %}
+								<div class="d-flex bg-clr-hover">
+									<div class="flex-1">
+										<h6 class="text-uppercase fw-bold">{{companyName}}</h6>
+										{% if changePercent > 0 %}
+											<h4 class="card-text text-success">{{latestPrice}}<small class="text-success">USD</small></h4>
+										{% else %}
+											<h4 class="card-text text-danger">{{latestPrice}}<small class="text-danger">USD</small></h4>
+										{% endif %}
+									</div>
+									<div class="float-right align-self-center">
+										{% if changePercent > 0 %}
+											<h4 class="card-text text-success" style="text-align: right">{{changePercent}}%</h4>
+										{% else %}
+											<h4 class="card-text text-danger" style="text-align: right">{{changePercent}}%</h4>
+										{% endif %}
+									</div>
 								</div>
-
-							</div>
-
+								<div class="separator-dashed"></div>
+							{% endfor %}
 						</div>
 
-
-
-
-
-
-
-						<!-- US tickers -->
-	          <!-- <ul class="list-group list-group-flush" id="default_US" style="display: block;">
-	            {% for companyName, latestPrice, changePercent, ticker in US_tickers %} -->
-	              <!-- *** Deleted hidden form submission here -->
-								<!-- <li class="list-group-item bg-clr-hover" onclick="#">
-	                <div class="row">
-	                  <div class="col-9">
-	                    <p class="card-subtitle"><small class="text-muted">{{companyName}}</small></p>
-	                    {% if changePercent > 0 %}
-	                      <p class="card-title text-success">{{latestPrice}}<small class="text-success">USD</small></p>
-	                    {% else %}
-	                      <p class="card-title text-danger">{{latestPrice}}<small class="text-danger">USD</small></p>
-	                    {% endif %}
-	                  </div>
-	                  <div class="col-3 align-self-center">
-	                    {% if changePercent > 0 %}
-	                      <p class="card-text text-success" style="text-align: right">{{changePercent}}%</p>
-	                    {% else %}
-	                      <p class="card-text text-danger" style="text-align: right">{{changePercent}}%</p>
-	                    {% endif %}
-	                  </div>
-	                </div>
-	              </li>
-	            {% endfor %}
-	          </ul> -->
-						<!-- US tickers END -->
+						<!-- Card contents -->
+						<div class="card-body" id="default_ETFs" style="display: none;">
+							{% for companyName, latestPrice, changePercent, ticker in US_ETFs_tickers %}
+								<div class="d-flex bg-clr-hover">
+									<div class="flex-1">
+										<h6 class="text-uppercase fw-bold">{{companyName}}</h6>
+										{% if changePercent > 0 %}
+											<h4 class="card-text text-success">{{latestPrice}}<small class="text-success">USD</small></h4>
+										{% else %}
+											<h4 class="card-text text-danger">{{latestPrice}}<small class="text-danger">USD</small></h4>
+										{% endif %}
+									</div>
+									<div class="float-right align-self-center">
+										{% if changePercent > 0 %}
+											<h4 class="card-text text-success" style="text-align: right">{{changePercent}}%</h4>
+										{% else %}
+											<h4 class="card-text text-danger" style="text-align: right">{{changePercent}}%</h4>
+										{% endif %}
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
 
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
 
 
@@ -130,5 +106,28 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+	<script>
+		function load_tickers(category) {
+			// Show US symbols
+			if (category == 'US') {
+				// Adjust display
+				document.querySelector('#default_US').style.display = 'block';
+				document.querySelector('#default_ETFs').style.display = 'none';
+				// Adjust buttons
+				document.getElementById('btn_US_tickers').className = 'btn btn-info btn-round btn-sm mr-1';
+				document.getElementById('btn_ETFs_tickers').className = 'btn btn-info btn-border btn-round btn-sm mr-1';
+			}
+			// Show ETFs
+			if (category == 'ETFs') {
+				// Adjust display
+				document.querySelector('#default_US').style.display = 'none';
+				document.querySelector('#default_ETFs').style.display = 'block';
+				// Adjust buttons
+				document.getElementById('btn_US_tickers').className = 'btn btn-info btn-border btn-round btn-sm mr-1';
+				document.getElementById('btn_ETFs_tickers').className = 'btn btn-info btn-round btn-sm mr-1';
+			}
+		}
+	</script>
+
 
 {% endblock javascripts %}

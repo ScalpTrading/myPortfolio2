@@ -168,116 +168,18 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="card-head-row card-tools-still-right">
-								<h4 class="card-title">Users Geolocation</h4>
-								<div class="card-tools">
-									<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>
-									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
-									<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-times"></span></button>
-								</div>
+								<h4 class="card-title"> Current regional coverage </h4>
 							</div>
-							<p class="card-category">
-							Map of the distribution of users around the world</p>
+							<!-- <p class="card-category">
+							Map of the distribution of users around the world</p> -->
 						</div>
 						<div class="card-body">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="table-responsive table-hover table-sales">
-										<table class="table">
-											<tbody>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/id.png" alt="indonesia">
-														</div>
-													</td>
-													<td>Indonesia</td>
-													<td class="text-right">
-														2.320
-													</td>
-													<td class="text-right">
-														42.18%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/us.png" alt="united states">
-														</div>
-													</td>
-													<td>USA</td>
-													<td class="text-right">
-														240
-													</td>
-													<td class="text-right">
-														4.36%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/au.png" alt="australia">
-														</div>
-													</td>
-													<td>Australia</td>
-													<td class="text-right">
-														119
-													</td>
-													<td class="text-right">
-														2.16%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/ru.png" alt="russia">
-														</div>
-													</td>
-													<td>Russia</td>
-													<td class="text-right">
-														1.081
-													</td>
-													<td class="text-right">
-														19.65%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/cn.png" alt="china">
-														</div>
-													</td>
-													<td>China</td>
-													<td class="text-right">
-														1.100
-													</td>
-													<td class="text-right">
-														20%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/br.png" alt="brazil">
-														</div>
-													</td>
-													<td>Brasil</td>
-													<td class="text-right">
-														640
-													</td>
-													<td class="text-right">
-														11.63%
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mapcontainer">
-										<div id="map-example" class="vmap"></div>
-									</div>
+							<div class="col-md-10 ml-auto mr-auto">
+								<div class="mapcontainer">
+									<div id="map-example" class="vmap" style="height: 400px"></div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -293,7 +195,6 @@
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="/static/assets/js/setting-demo.js"></script>
-	<script src="/static/assets/js/demo.js"></script>
 
 	<script>
 
@@ -397,98 +298,36 @@
 
     }
 
-		Circles.create({
-			id:'circles-1',
-			radius:45,
-			value:60,
-			maxValue:100,
-			width:7,
-			text: 5,
-			colors:['#f1f1f1', '#FF9E27'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-2',
-			radius:45,
-			value:70,
-			maxValue:100,
-			width:7,
-			text: 36,
-			colors:['#f1f1f1', '#2BB930'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		Circles.create({
-			id:'circles-3',
-			radius:45,
-			value:40,
-			maxValue:100,
-			width:7,
-			text: 12,
-			colors:['#f1f1f1', '#F25961'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
-
-		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
-
-		var mytotalIncomeChart = new Chart(totalIncomeChart, {
-			type: 'bar',
-			data: {
-				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-				datasets : [{
-					label: "Total Income",
-					backgroundColor: '#ff9e27',
-					borderColor: 'rgb(23, 125, 255)',
-					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-				}],
+		$('#map-example').vectorMap(
+		{
+			map: 'world_en',
+			backgroundColor: 'transparent',
+			borderColor: '#fff',
+			borderWidth: 2,
+			color: '#e4e4e4',
+			enableZoom: true,
+			hoverColor: '#35cd3a',
+			hoverOpacity: null,
+			normalizeFunction: 'linear',
+			scaleColors: ['#b6d6ff', '#005ace'],
+			selectedColor: '#35cd3a',
+			selectedRegions: ['US', 'GB'],
+			showTooltip: true,
+			onRegionClick: function(element, code, region)
+			{
+				if (code == "us") {
+					load_news("US_gen");
+				}
+				else if (code=="gb") {
+					load_news("UK_gen");
+				}
+				window.scrollTo({top: 0, behavior: 'smooth'});
 			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					display: false,
-				},
-				scales: {
-					yAxes: [{
-						ticks: {
-							display: false //this will remove only the label
-						},
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}],
-					xAxes : [ {
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}]
-				},
-			}
+			onResize: function (element, width, height) {
+				console.log('Map Size: ' +  width + 'x' +  height);
+			},
 		});
 
-		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#ffa534',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
 	</script>
 
 {% endblock javascripts %}
