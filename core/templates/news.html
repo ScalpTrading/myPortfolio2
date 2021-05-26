@@ -39,59 +39,76 @@
                 <a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_US_gen_news" onclick="load_news('US_gen')">General</a>
                 <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_bz_news" onclick="load_news('US_bz')">Business</a>
                 <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_tech_news" onclick="load_news('US_tech')">Technology</a>
+								<a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_sports_news" onclick="load_news('US_sports')">Sports</a>
 								<div class="card-tools">
 									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card" onClick="window.location.reload();"><span class="fa fa-sync-alt"></span></button>
 								</div>
 							</div>
 						</div>
-            <!-- Body: US general news -->
-            <ul class="list-group list-group-flush" id="US_gen_news" style="display: block;">
-              {% for src, title, url, publishedAt, img in US_gen_articles %}
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
-                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
-                    </div>
-                    <div class="col-3" >
-                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" alt=""></a>
-                    </div>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+
+						<!-- Body: US general news -->
+						<div class="card-body" id="US_gen_news" style="display: block;">
+							{% for src, title, url, publishedAt, img in US_gen_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
+
             <!-- Body: US business news -->
-            <ul class="list-group list-group-flush" id="US_bz_news" style="display: none;">
-              {% for src, title, url, publishedAt, img in US_bz_articles %}
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
-                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
-                    </div>
-                    <div class="col-3" >
-                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" alt=""></a>
-                    </div>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+						<div class="card-body" id="US_bz_news" style="display: none;">
+							{% for src, title, url, publishedAt, img in US_bz_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
+
             <!-- Body: US tech news -->
-            <ul class="list-group list-group-flush" id="US_tech_news" style="display: none;">
-              {% for src, title, url, publishedAt, img in US_tech_articles %}
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
-                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
-                    </div>
-                    <div class="col-3" >
-                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" alt=""></a>
-                    </div>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+						<div class="card-body" id="US_tech_news" style="display: none;">
+							{% for src, title, url, publishedAt, img in US_tech_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
+
+						<!-- Body: US sports news -->
+						<div class="card-body" id="US_sports_news" style="display: none;">
+							{% for src, title, url, publishedAt, img in US_sports_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
 
           </div>
 
@@ -103,59 +120,75 @@
                 <a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_UK_gen_news" onclick="load_news('UK_gen')">General</a>
                 <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_bz_news" onclick="load_news('UK_bz')">Business</a>
                 <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_tech_news" onclick="load_news('UK_tech')">Technology</a>
+								<a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_sports_news" onclick="load_news('UK_sports')">Sports</a>
 								<div class="card-tools">
 									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card" onClick="window.location.reload();"><span class="fa fa-sync-alt"></span></button>
 								</div>
 							</div>
 						</div>
             <!-- Body: UK general news section -->
-            <ul class="list-group list-group-flush" id="UK_gen_news">
-              {% for src, title, url, publishedAt, img in UK_gen_articles %}
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
-                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
-                    </div>
-                    <div class="col-3" >
-                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'"class="img-responsive fit-image rounded" alt=""></a>
-                    </div>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+						<div class="card-body" id="UK_gen_news" style="display: none;">
+							{% for src, title, url, publishedAt, img in UK_gen_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
+
             <!-- Body: UK business news section -->
-            <ul class="list-group list-group-flush" id="UK_bz_news">
-              {% for src, title, url, publishedAt, img in UK_bz_articles %}
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
-                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
-                    </div>
-                    <div class="col-3" >
-                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'"class="img-responsive fit-image rounded" alt=""></a>
-                    </div>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+						<div class="card-body" id="UK_bz_news" style="display: none;">
+							{% for src, title, url, publishedAt, img in UK_bz_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
+
             <!-- Body: UK tech news section -->
-            <ul class="list-group list-group-flush" id="UK_tech_news">
-              {% for src, title, url, publishedAt, img in UK_tech_articles %}
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
-                      <a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
-                    </div>
-                    <div class="col-3" >
-                      <a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'"class="img-responsive fit-image rounded" alt=""></a>
-                    </div>
-                  </div>
-                </li>
-              {% endfor %}
-            </ul>
+						<div class="card-body" id="UK_tech_news" style="display: none;">
+							{% for src, title, url, publishedAt, img in UK_tech_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
+
+						<!-- Body: UK sports news section -->
+						<div class="card-body" id="UK_sports_news" style="display: none;">
+							{% for src, title, url, publishedAt, img in UK_sports_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 300px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
 
           </div>
 
@@ -208,7 +241,7 @@
         document.querySelector('#US_gen_news').style.display = 'block'
         document.querySelector('#US_bz_news').style.display = 'none'
         document.querySelector('#US_tech_news').style.display = 'none'
-
+				document.querySelector('#US_sports_news').style.display = 'none'
 
         // Adjust buttons
         document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
@@ -216,16 +249,18 @@
         document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+
       }
 
-      if (region == 'US_bz') {
+      else if (region == 'US_bz') {
         // Adjust news articles
         document.querySelector('#US_news').style.display = 'block'
         document.querySelector('#UK_news').style.display = 'none'
         document.querySelector('#US_gen_news').style.display = 'none'
         document.querySelector('#US_bz_news').style.display = 'block'
         document.querySelector('#US_tech_news').style.display = 'none'
-
+				document.querySelector('#US_sports_news').style.display = 'none'
 
         // Adjust buttons
         document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
@@ -233,15 +268,17 @@
         document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
       }
 
-      if (region == 'US_tech') {
+      else if (region == 'US_tech') {
         // Adjust news articles
         document.querySelector('#US_news').style.display = 'block'
         document.querySelector('#UK_news').style.display = 'none'
         document.querySelector('#US_gen_news').style.display = 'none'
         document.querySelector('#US_bz_news').style.display = 'none'
         document.querySelector('#US_tech_news').style.display = 'block'
+				document.querySelector('#US_sports_news').style.display = 'none'
 
         // Adjust buttons
         document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
@@ -249,6 +286,25 @@
         document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+      }
+
+			else if (region == 'US_sports') {
+        // Adjust news articles
+        document.querySelector('#US_news').style.display = 'block'
+        document.querySelector('#UK_news').style.display = 'none'
+        document.querySelector('#US_gen_news').style.display = 'none'
+        document.querySelector('#US_bz_news').style.display = 'none'
+        document.querySelector('#US_tech_news').style.display = 'none'
+				document.querySelector('#US_sports_news').style.display = 'block'
+
+        // Adjust buttons
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
       }
 
       else if (region == 'UK_gen') {
@@ -258,12 +314,14 @@
         document.querySelector('#UK_gen_news').style.display = 'block'
         document.querySelector('#UK_bz_news').style.display = 'none'
         document.querySelector('#UK_tech_news').style.display = 'none'
+				document.querySelector('#UK_sports_news').style.display = 'none'
         // Adjust buttons
         document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
       }
 
       else if (region == 'UK_bz') {
@@ -273,12 +331,14 @@
         document.querySelector('#UK_gen_news').style.display = 'none'
         document.querySelector('#UK_bz_news').style.display = 'block'
         document.querySelector('#UK_tech_news').style.display = 'none'
+				document.querySelector('#UK_sports_news').style.display = 'none'
         // Adjust buttons
         document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
       }
 
       else if (region == 'UK_tech') {
@@ -288,12 +348,31 @@
         document.querySelector('#UK_gen_news').style.display = 'none'
         document.querySelector('#UK_bz_news').style.display = 'none'
         document.querySelector('#UK_tech_news').style.display = 'block'
+				document.querySelector('#UK_sports_news').style.display = 'none'
         // Adjust buttons
         document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
         document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
         document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+      }
+
+			else if (region == 'UK_sports') {
+        // News news articles
+        document.querySelector('#US_news').style.display = 'none'
+        document.querySelector('#UK_news').style.display = 'block'
+        document.querySelector('#UK_gen_news').style.display = 'none'
+        document.querySelector('#UK_bz_news').style.display = 'none'
+        document.querySelector('#UK_tech_news').style.display = 'none'
+				document.querySelector('#UK_sports_news').style.display = 'block'
+        // Adjust buttons
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
       }
 
     }
