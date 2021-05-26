@@ -10,29 +10,23 @@
 	<div class="content">
 
 		<!-- Page banner -->
-		<div class="page-inner">
-			<div class="page-header">
-				<h4 class="page-title">Finanace</h4>
-				<ul class="breadcrumbs">
-					<li class="nav-home">
-						<a href="#">
-							<i class="flaticon-home"></i>
-						</a>
-					</li>
-					<li class="separator">
-						<i class="flaticon-right-arrow"></i>
-					</li>
-					<li class="nav-item">
-						<a href="#">Finanace</a>
-					</li>
-				</ul>
+		<div class="panel-header bg-primary-gradient">
+			<div class="page-inner py-5">
+				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+					<div>
+						<h2 class="text-white pb-2 fw-bold"> <small> <a href="#"><i class="flaticon-home"></i></a> <i class="flaticon-right-arrow"></i> </small> Finance</h2>
+					</div>
+				</div>
 			</div>
-			<!-- Page banner END -->
+		</div>
+		<!-- Page banner END -->
 
-			<div class="row">
+		<div class="page-inner mt--5">
+
+			<div class="row mt--2">
 
 				<!-- LHS widget -->
-				<div class="col-4">
+				<div class="col-3">
 					<div class="card">
 
 						<!-- Card header -->
@@ -53,16 +47,16 @@
 									<div class="flex-1">
 										<h6 class="text-uppercase fw-bold">{{companyName}}</h6>
 										{% if changePercent > 0 %}
-											<h4 class="card-text text-success">{{latestPrice}}<small class="text-success">USD</small></h4>
+											<h5 class="card-text text-success">{{latestPrice}}<small class="text-success">USD</small></h5>
 										{% else %}
-											<h4 class="card-text text-danger">{{latestPrice}}<small class="text-danger">USD</small></h4>
+											<h5 class="card-text text-danger">{{latestPrice}}<small class="text-danger">USD</small></h5>
 										{% endif %}
 									</div>
 									<div class="float-right align-self-center">
 										{% if changePercent > 0 %}
-											<h4 class="card-text text-success" style="text-align: right">{{changePercent}}%</h4>
+											<h5 class="card-text text-success" style="text-align: right">{{changePercent}}%</h5>
 										{% else %}
-											<h4 class="card-text text-danger" style="text-align: right">{{changePercent}}%</h4>
+											<h5 class="card-text text-danger" style="text-align: right">{{changePercent}}%</h5>
 										{% endif %}
 									</div>
 								</div>
@@ -98,7 +92,7 @@
 				</div>
 
 				<!-- RHS widget -->
-				<div class="col-8">
+				<div class="col-9">
 					<div class="card">
 
 						<!-- Card header -->
