@@ -287,6 +287,9 @@ def news(request):
 @login_required(login_url="/login")
 def finance(request):
 
+    # Number of articles to load
+    article_nos = 15
+
     # Default stocks, obtain data via IEX Cloud batch request
     default_US_tickers = ["AAPL","MSFT","AMZN","GOOGL","NFLX","BRK.B","TSLA","JPM","V","NVDA","DIS","T","CRM","SE","PINS","ROKU"]
     default_US_ETFs = ["VOO", "VTI", "VXUS", "VEA", "VWO", "QQQ", "QQQJ"]
@@ -311,10 +314,38 @@ def finance(request):
     except:
         US_ETFs_tickers = None
 
+    # Financial news
+    fin_articles = news_lookup("financial")["articles"]
+    fin_article_sources = []
+    fin_article_titles = []
+    fin_article_urls = []
+    fin_article_publishedAts = []
+    fin_article_imgs = []
+
+    for i in range(article_nos):
+        f = fin_articles[i]
+        fin_article_sources.append(f["source"]["name"])
+        fin_article_titles.append(f["title"])
+        fin_article_urls.append(f["url"])
+        fin_article_imgs.append(f["urlToImage"])
+        # Parse delta time since article's publishing time
+        dt = maya.parse(f["publishedAt"]).datetime().replace(microsecond=0, second=0, minute=0)
+        now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
+        if str(now-dt)[0] == "0":
+            dt_difference = "Less than an hour ago"
+        elif str(now-dt)[0] == "1":
+            dt_difference = "1 hour ago"
+        else:
+            dt_difference = str(now-dt)[0]+" hours ago"
+        fin_article_publishedAts.append(dt_difference)
+
+    fin_articles = zip(fin_article_sources, fin_article_titles, fin_article_urls, fin_article_publishedAts, fin_article_imgs)
+
     context = {
         "segment": "finance",
         "US_tickers": US_tickers,
         "US_ETFs_tickers": US_ETFs_tickers,
+        "fin_articles": fin_articles,
     }
 
     html_template = loader.get_template( 'finance.html' )

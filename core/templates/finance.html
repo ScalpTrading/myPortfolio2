@@ -46,7 +46,7 @@
 							</div>
 						</div>
 
-						<!-- Card contents -->
+						<!-- Card contents: US symbols -->
 						<div class="card-body" id="default_US" style="display: block;">
 							{% for companyName, latestPrice, changePercent, ticker in US_tickers %}
 								<div class="d-flex bg-clr-hover">
@@ -70,7 +70,7 @@
 							{% endfor %}
 						</div>
 
-						<!-- Card contents -->
+						<!-- Card contents: ETF symbols -->
 						<div class="card-body" id="default_ETFs" style="display: none;">
 							{% for companyName, latestPrice, changePercent, ticker in US_ETFs_tickers %}
 								<div class="d-flex bg-clr-hover">
@@ -108,9 +108,23 @@
 							</div>
 						</div>
 
-						<!-- Card contents -->
-						<div class="card-body" id="default_US" style="display: block;">
+						<!-- Body: Financial news -->
+						<div class="card-body" id="US_bz_news" style="display: block;">
+							{% for src, title, url, publishedAt, img in fin_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 200px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
 						</div>
+
+
 					</div>
 				</div>
 

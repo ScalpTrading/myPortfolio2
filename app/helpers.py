@@ -144,14 +144,17 @@ def news_lookup(region):
     # News API documentation: https://newsapi.org/docs
 
     # Domains to show on financial news feed, can be modified
-    domains = "marketwatch.com,investors.com,barrons.com,proactiveinvestors.co.uk,investing.com,dailyfx.com,bloomberg.com,wsj.com"
+    #marketwatch.com,
+    domains = "investors.com,barrons.com,proactiveinvestors.co.uk,investing.com,dailyfx.com,wsj.com"
     #response = requests.get(f"https://newsapi.org/v2/everything?sortBy=popularity&domains={domains}&apiKey={api_key}")
     try:
-        api_key = "67fffc143a5046d48e29f7a3cbbacc88"
+        api_key = "ba23f5725f994245b208bad342435247"
+        #api_key = "67fffc143a5046d48e29f7a3cbbacc88"
 
         # News by region
         if region == "financial":
-            response = requests.get(f"https://newsapi.org/v2/everything?sortBy=publishedAt&domains={domains}&apiKey={api_key}")
+            response = requests.get(f"https://newsapi.org/v2/everything?sortBy=publishedAt&language=en&domains={domains}&apiKey={api_key}")
+
         elif region == "US_general":
             response = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={api_key}")
         elif region == "US_business":
