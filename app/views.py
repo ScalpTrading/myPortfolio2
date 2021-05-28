@@ -352,14 +352,6 @@ def finance(request):
     return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login")
-def quote_blank(request):
-    """Symbol search page"""
-    context = {}
-
-    html_template = loader.get_template( 'quote-blank.html' )
-    return HttpResponse(html_template.render(context, request))
-
-@login_required(login_url="/login")
 def quote(request):
     """User symbol quote request"""
 
@@ -367,8 +359,16 @@ def quote(request):
     if request.method == "GET":
 
         # Obtain user's symbol input
-        # try:
-        symbol = request.GET["symbol"]
+        try:
+            symbol = request.GET["symbol"]
+
+        # Stock search page (initial access)
+        except:
+            context = {
+                "segment": "quote"
+            }
+            html_template = loader.get_template( 'quote-blank.html' )
+            return HttpResponse(html_template.render(context, request))
 
         # If no symbol entered
         if not symbol:
@@ -385,6 +385,12 @@ def quote(request):
         profitability = mw_scrapped["profitability"]
         capitalization = mw_scrapped["capitalization"]
 
+        if mw_scrapped == None:
+            context = {}
+
+            html_template = loader.get_template( 'quote-blank.html' )
+            return HttpResponse(html_template.render(context, request))
+
         # Symbol specific news, initially load 20 articles
         articles = iex_news_lookup(symbol, 20)
         article_sources = []
@@ -392,6 +398,16 @@ def quote(request):
         article_urls = []
         article_publishedAts = []
         article_imgs = []
+
+        if articles == None:
+            context = {
+                "segment": "quote",
+                "error": "We didn't find any symbols matching",
+                "symbol": symbol,
+            }
+
+            html_template = loader.get_template( 'quote-blank.html' )
+            return HttpResponse(html_template.render(context, request))
 
         for i in range(len(articles)):
             # Only load 12 english articles
