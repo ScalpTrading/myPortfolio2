@@ -26,108 +26,117 @@
 
 				<!-- LHS widget -->
 				<div class="col-4">
-					<div class="card">
 
+					<!-- Company financials -->
+					<div class="card">
 						<!-- Card header -->
 						<div class="card-header">
 							<div class="card-head-row card-tools-still-right">
-                <div class="card-title">
-                  <h4>{{companyName}}</h4>
-                  <h5 class="card-title"> <small>$</small>{{latestPrice}} <small>USD</small></h5>
-                  {% if changePercent > 0 %}
-                    <p class="card-text text-success">↑{{change}} &nbsp; {{changePercent}}%</p>
-                  {% else %}
-                    <p class="card-text text-danger">↓{{change}} &nbsp; {{changePercent}}%</p>
-                  {% endif %}
-                </div>
+                <h4 class="card-title">{{companyName}}</h4>
                 <div class="card-tools">
                   <!-- ********** User add symbol to watchlist TODO -->
                   {% if user.is_authenticated %}
                     {% if already_exist %}
-                      <button class="btn btn-outline-success" id="watchlist-btn" onclick="watchlist('{{symbol}}')""><small>- watchlist</small></button>
+                      <button class="btn btn-icon btn-link btn-primary btn-xs" onclick="watchlist('{{symbol}}')"><span class="fas fa-angle-down"></span></button>
                     {% else %}
-                      <button class="btn btn-outline-success" id="watchlist-btn" onclick="watchlist('{{symbol}}')""><small>+ watchlist</small></button>
+                      <button class="btn btn-icon btn-link btn-primary btn-xs" onclick="watchlist('{{symbol}}')"><span class="far fa-bookmark"></span></button>
                     {% endif %}
                   {% endif %}
+
+									<button class="btn btn-icon btn-link btn-primary btn-xs" data-toggle="collapse" data-target="#data-collapse"><span class="fa fa-angle-down"></span></button>
                 </div>
 							</div>
+							{% if changePercent > 0 %}
+								<h5 class="card-category text-success"> <small>$</small>{{latestPrice}} <small>USD</small></h5>
+								<h6 class="card-category text-success">↑{{change}} &nbsp; {{changePercent}}%</h6>
+							{% else %}
+								<h5 class="card-category text-danger"> <small>$</small>{{latestPrice}} <small>USD</small></h5>
+								<h6 class="card-category text-danger">↓{{change}} &nbsp; {{changePercent}}%</h6>
+							{% endif %}
 						</div>
 
 						<!-- Card contents: US symbols -->
-						<div class="card-body" id="default_US" style="display: block;">
+						<div class="panel-collapse collapse show" id="data-collapse">
+							<div class="card-body" id="default_US" style="display: block;">
 
-              <!-- Valuation -->
-              <p class="card-title">Valuation</p>
-              {% for key, value in valuation.items %}
-                <div class="d-flex bg-clr-hover">
-                  <div class="flex-1">
-                    <p class="card-text"><small>{{key}}</small></p>
-                  </div>
-                  <div class="float-right align-self-center">
-                    <h6 class="card-text"><b>{{value}}</b></h6>
-                  </div>
-                </div>
-              {% endfor %}
-              <div class="separator-dashed"></div>
+	              <!-- Valuation -->
+	              <p class="card-title">Valuation</p>
+	              {% for key, value in valuation.items %}
+	                <div class="d-flex bg-clr-hover">
+	                  <div class="flex-1">
+	                    <p class="card-text"><small>{{key}}</small></p>
+	                  </div>
+	                  <div class="float-right align-self-center">
+	                    <h6 class="card-text"><b>{{value}}</b></h6>
+	                  </div>
+	                </div>
+	              {% endfor %}
+	              <div class="separator-dashed"></div>
 
-              <!-- Efficiency -->
-              <p class="card-title">Efficiency</p>
-              {% for key, value in efficiency.items %}
-                <div class="d-flex bg-clr-hover">
-                  <div class="flex-1">
-                    <p class="card-text"><small>{{key}}</small></p>
-                  </div>
-                  <div class="float-right align-self-center">
-                    <h6 class="card-text"><b>{{value}}</b></h6>
-                  </div>
-                </div>
-              {% endfor %}
-              <div class="separator-dashed"></div>
+	              <!-- Efficiency -->
+	              <p class="card-title">Efficiency</p>
+	              {% for key, value in efficiency.items %}
+	                <div class="d-flex bg-clr-hover">
+	                  <div class="flex-1">
+	                    <p class="card-text"><small>{{key}}</small></p>
+	                  </div>
+	                  <div class="float-right align-self-center">
+	                    <h6 class="card-text"><b>{{value}}</b></h6>
+	                  </div>
+	                </div>
+	              {% endfor %}
+	              <div class="separator-dashed"></div>
 
-              <!-- Liquidity -->
-              <p class="card-title">Liquidity</p>
-              {% for key, value in liquidity.items %}
-                <div class="d-flex bg-clr-hover">
-                  <div class="flex-1">
-                    <p class="card-text"><small>{{key}}</small></p>
-                  </div>
-                  <div class="float-right align-self-center">
-                    <h6 class="card-text"><b>{{value}}</b></h6>
-                  </div>
-                </div>
-              {% endfor %}
-              <div class="separator-dashed"></div>
+	              <!-- Liquidity -->
+	              <p class="card-title">Liquidity</p>
+	              {% for key, value in liquidity.items %}
+	                <div class="d-flex bg-clr-hover">
+	                  <div class="flex-1">
+	                    <p class="card-text"><small>{{key}}</small></p>
+	                  </div>
+	                  <div class="float-right align-self-center">
+	                    <h6 class="card-text"><b>{{value}}</b></h6>
+	                  </div>
+	                </div>
+	              {% endfor %}
+	              <div class="separator-dashed"></div>
 
-              <!-- Profitability -->
-              <p class="card-title">Profitability</p>
-              {% for key, value in profitability.items %}
-                <div class="d-flex bg-clr-hover">
-                  <div class="flex-1">
-                    <p class="card-text"><small>{{key}}</small></p>
-                  </div>
-                  <div class="float-right align-self-center">
-                    <h6 class="card-text"><b>{{value}}</b></h6>
-                  </div>
-                </div>
-              {% endfor %}
-              <div class="separator-dashed"></div>
+	              <!-- Profitability -->
+	              <p class="card-title">Profitability</p>
+	              {% for key, value in profitability.items %}
+	                <div class="d-flex bg-clr-hover">
+	                  <div class="flex-1">
+	                    <p class="card-text"><small>{{key}}</small></p>
+	                  </div>
+	                  <div class="float-right align-self-center">
+	                    <h6 class="card-text"><b>{{value}}</b></h6>
+	                  </div>
+	                </div>
+	              {% endfor %}
+	              <div class="separator-dashed"></div>
 
-              <!-- Liquidity -->
-              <p class="card-title">Capitalization</p>
-              {% for key, value in capitalization.items %}
-                <div class="d-flex bg-clr-hover">
-                  <div class="flex-1">
-                    <p class="card-text"><small>{{key}}</small></p>
-                  </div>
-                  <div class="float-right align-self-center">
-                    <h6 class="card-text"><b>{{value}}</b></h6>
-                  </div>
-                </div>
-              {% endfor %}
-              <div class="separator-dashed"></div>
+	              <!-- Liquidity -->
+	              <p class="card-title">Capitalization</p>
+	              {% for key, value in capitalization.items %}
+	                <div class="d-flex bg-clr-hover">
+	                  <div class="flex-1">
+	                    <p class="card-text"><small>{{key}}</small></p>
+	                  </div>
+	                  <div class="float-right align-self-center">
+	                    <h6 class="card-text"><b>{{value}}</b></h6>
+	                  </div>
+	                </div>
+	              {% endfor %}
+	              <div class="separator-dashed"></div>
 
-            </div>
+	            </div>
+
+						</div>
+
 					</div>
+					<!-- Company financials END -->
+
+					
 				</div>
         <!-- LHS widget END -->
 
