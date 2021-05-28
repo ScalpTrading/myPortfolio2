@@ -1,0 +1,226 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Stocks {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+
+		<!-- Page banner -->
+		<div class="panel-header bg-primary-gradient">
+			<div class="page-inner py-5">
+				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+					<div>
+						<h2 class="text-white pb-2 fw-bold"> <small> <a href="#"><i class="flaticon-home"></i></a> <i class="flaticon-right-arrow"></i> </small> Stocks</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Page banner END -->
+
+		<div class="page-inner mt--5">
+
+			<div class="row mt--2">
+
+				<!-- LHS widget -->
+				<div class="col-4">
+					<div class="card">
+
+						<!-- Card header -->
+						<div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+                <div class="card-title">
+                  <h4>{{companyName}}</h4>
+                  <h5 class="card-title"> <small>$</small>{{latestPrice}} <small>USD</small></h5>
+                  {% if changePercent > 0 %}
+                    <p class="card-text text-success">↑{{change}} &nbsp; {{changePercent}}%</p>
+                  {% else %}
+                    <p class="card-text text-danger">↓{{change}} &nbsp; {{changePercent}}%</p>
+                  {% endif %}
+                </div>
+                <div class="card-tools">
+                  <!-- ********** User add symbol to watchlist TODO -->
+                  {% if user.is_authenticated %}
+                    {% if already_exist %}
+                      <button class="btn btn-outline-success" id="watchlist-btn" onclick="watchlist('{{symbol}}')""><small>- watchlist</small></button>
+                    {% else %}
+                      <button class="btn btn-outline-success" id="watchlist-btn" onclick="watchlist('{{symbol}}')""><small>+ watchlist</small></button>
+                    {% endif %}
+                  {% endif %}
+                </div>
+							</div>
+						</div>
+
+						<!-- Card contents: US symbols -->
+						<div class="card-body" id="default_US" style="display: block;">
+
+              <!-- Valuation -->
+              <p class="card-title">Valuation</p>
+              {% for key, value in valuation.items %}
+                <div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>{{key}}</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b>{{value}}</b></h6>
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="separator-dashed"></div>
+
+              <!-- Efficiency -->
+              <p class="card-title">Efficiency</p>
+              {% for key, value in efficiency.items %}
+                <div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>{{key}}</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b>{{value}}</b></h6>
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="separator-dashed"></div>
+
+              <!-- Liquidity -->
+              <p class="card-title">Liquidity</p>
+              {% for key, value in liquidity.items %}
+                <div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>{{key}}</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b>{{value}}</b></h6>
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="separator-dashed"></div>
+
+              <!-- Profitability -->
+              <p class="card-title">Profitability</p>
+              {% for key, value in profitability.items %}
+                <div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>{{key}}</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b>{{value}}</b></h6>
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="separator-dashed"></div>
+
+              <!-- Liquidity -->
+              <p class="card-title">Capitalization</p>
+              {% for key, value in capitalization.items %}
+                <div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>{{key}}</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b>{{value}}</b></h6>
+                  </div>
+                </div>
+              {% endfor %}
+              <div class="separator-dashed"></div>
+
+            </div>
+
+
+
+							<!-- {% for companyName, latestPrice, changePercent, ticker in US_tickers %}
+								<div class="d-flex bg-clr-hover">
+									<div class="flex-1">
+										<h6 class="text-uppercase fw-bold">{{companyName}}</h6>
+										{% if changePercent > 0 %}
+											<h5 class="card-text text-success">{{latestPrice}}<small class="text-success">USD</small></h5>
+										{% else %}
+											<h5 class="card-text text-danger">{{latestPrice}}<small class="text-danger">USD</small></h5>
+										{% endif %}
+									</div>
+									<div class="float-right align-self-center">
+										{% if changePercent > 0 %}
+											<h5 class="card-text text-success" style="text-align: right">{{changePercent}}%</h5>
+										{% else %}
+											<h5 class="card-text text-danger" style="text-align: right">{{changePercent}}%</h5>
+										{% endif %}
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %} -->
+						<!-- </div> -->
+
+
+					</div>
+				</div>
+
+				<!-- RHS widget -->
+				<div class="col-8">
+					<div class="card">
+
+						<!-- Card header -->
+						<div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+								<div class="card-title">Financial news</div>
+							</div>
+						</div>
+
+						<!-- Body: Financial news -->
+						<div class="card-body" id="US_bz_news" style="display: block;">
+							{% for src, title, url, publishedAt, img in fin_articles %}
+								<div class="d-flex">
+									<div class="flex-1">
+										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+										<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+									</div>
+									<div class="float-right">
+										<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 200px;" alt=""></a>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+							{% endfor %}
+						</div>
+
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+	<script>
+		function load_tickers(category) {
+			// Show US symbols
+			if (category == 'US') {
+				// Adjust display
+				document.querySelector('#default_US').style.display = 'block';
+				document.querySelector('#default_ETFs').style.display = 'none';
+				// Adjust buttons
+				document.getElementById('btn_US_tickers').className = 'btn btn-info btn-round btn-sm mr-1';
+				document.getElementById('btn_ETFs_tickers').className = 'btn btn-info btn-border btn-round btn-sm mr-1';
+			}
+			// Show ETFs
+			if (category == 'ETFs') {
+				// Adjust display
+				document.querySelector('#default_US').style.display = 'none';
+				document.querySelector('#default_ETFs').style.display = 'block';
+				// Adjust buttons
+				document.getElementById('btn_US_tickers').className = 'btn btn-info btn-border btn-round btn-sm mr-1';
+				document.getElementById('btn_ETFs_tickers').className = 'btn btn-info btn-round btn-sm mr-1';
+			}
+		}
+	</script>
+
+
+{% endblock javascripts %}

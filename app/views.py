@@ -351,6 +351,140 @@ def finance(request):
     html_template = loader.get_template( 'finance.html' )
     return HttpResponse(html_template.render(context, request))
 
+@login_required(login_url="/login")
+def quote_blank(request):
+    """Symbol search page"""
+    context = {}
+
+    html_template = loader.get_template( 'quote-blank.html' )
+    return HttpResponse(html_template.render(context, request))
+
+@login_required(login_url="/login")
+def quote(request):
+    """User symbol quote request"""
+
+    # GET request, user's symbol input
+    if request.method == "GET":
+
+        # Obtain user's symbol input
+        # try:
+        symbol = request.GET["symbol"]
+
+        # If no symbol entered
+        if not symbol:
+            context = {}
+
+            html_template = loader.get_template( 'page-404.html' )
+            return HttpResponse(html_template.render(context, request))
+
+        # Scrap company stats
+        mw_scrapped = mw_lookup(symbol)
+        valuation = mw_scrapped["valuation"]
+        efficiency = mw_scrapped["efficiency"]
+        liquidity = mw_scrapped["liquidity"]
+        profitability = mw_scrapped["profitability"]
+        capitalization = mw_scrapped["capitalization"]
+
+        # Symbol specific news, initially load 20 articles
+        articles = iex_news_lookup(symbol, 20)
+        article_sources = []
+        article_titles = []
+        article_urls = []
+        article_publishedAts = []
+        article_imgs = []
+
+        for i in range(len(articles)):
+            # Only load 12 english articles
+            if len(article_sources) == 12:
+                break
+            f = articles[i]
+            # Only save english language articles
+            if f["lang"] == "en":
+                article_sources.append(f["source"])
+                article_titles.append(f["headline"])
+                article_urls.append(f["url"])
+                article_imgs.append(f["image"])
+
+                # Convert datetime from millisecond epoch to datetime format
+                s = f["datetime"] / 1000
+                dt = datetime.fromtimestamp(s).strftime('%Y-%m-%d %H:%M:%S.%f')
+
+                #Parse delta time since article's publishing time
+                dt = maya.parse(dt).datetime().replace(microsecond=0, second=0, minute=0)
+                now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
+                difference = datetime.now(timezone.utc)-maya.parse(dt).datetime()
+                if str(now-dt)[0] == "0":
+                    dt_difference = "Less than an hour ago"
+                elif "1 day" in str(now-dt):
+                    dt_difference = "over a day ago"
+                elif "2 day" in str(now-dt):
+                    dt_difference = "over 2 days ago"
+                else:
+                    dt_difference = str(difference.seconds//3600) +" hours ago"
+                article_publishedAts.append(dt_difference)
+
+        symbol_articles = zip(article_sources, article_titles, article_urls, article_publishedAts, article_imgs)
+
+        # Symbol company info
+        info = iex_info_lookup(symbol)
+        description = info["description"]
+        CEO = info["CEO"]
+        address = info["address"]
+        city = info["city"]
+        state = info["state"]
+        country = info["country"]
+        website = info["website"]
+        employees = info["employees"]
+
+        # Check if user has added symbol to watchlist
+        # if request.user.is_anonymous == False:
+        #     user=request.user
+        #     already_exist = Watchlist.objects.filter(user=user, symbol=symbol).exists()
+        # else:
+        #     already_exist = None
+
+        # IEX Cloud API call
+        instrument = iex_lookup(symbol)
+        # If no data returned
+        if not instrument:
+            context = {}
+            html_template = load.get_template( 'page-403.html' )
+            return HttpResponse(html_template.render(context, request))
+
+        else:
+            symbol = instrument["symbol"]
+            companyName = instrument["companyName"]
+            latestPrice = instrument["latestPrice"]
+            changePercent = instrument["changePercent"]
+            change = instrument["change"]
+
+            context = {
+                "segment": "quote",
+                "symbol": symbol,
+                "companyName": companyName,
+                "latestPrice": latestPrice,
+                "changePercent": changePercent,
+                "change": change,
+                "valuation": valuation,
+                "efficiency": efficiency,
+                "liquidity": liquidity,
+                "profitability": profitability,
+                "capitalization": capitalization,
+                "symbol_articles": symbol_articles,
+                "description": description,
+                "CEO": CEO,
+                "address": address,
+                "city": city,
+                "state": state,
+                "country": country,
+                "website": website,
+                "employees": employees,
+                # "already_exist": already_exist,
+            }
+
+            html_template = loader.get_template( 'quote.html' )
+            return HttpResponse(html_template.render(context, request))
+
 @login_required(login_url="/login/")
 def test(request):
     context = {

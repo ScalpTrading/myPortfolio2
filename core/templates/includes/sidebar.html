@@ -80,6 +80,14 @@
 							</a>
 						</li>
 
+						<!-- Stocks -->
+						<li class="nav-item {% if 'quote' in segment %} active {% endif %}" >
+							<a href="{% url 'quote_blank' %}">
+								<i class="fa fa-dollar-sign"></i>
+								<p>Stocks</p>
+							</a>
+						</li>
+
 						<!-- Base -->
 						<li class="nav-item {% if 'ui-' in segment %} active {% endif %}">
 							<a data-toggle="collapse" href="#base">

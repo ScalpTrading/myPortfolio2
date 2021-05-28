@@ -1,0 +1,62 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Finance {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content">
+    <div class="page-inner">
+      <div class="row">
+  			<div class="col-md-12">
+  				<div class="card">
+
+            <!-- Header -->
+  					<div class="card-header">
+  						<h4 class="card-title text-center">
+  							Stocks
+  						</h4>
+  						<p class="card-category text-center">
+  							Search for stocks, ETFs & more
+  						</p>
+  					</div>
+
+            <!-- Search bar -->
+  					<div class="card-body">
+              <div class="col-md-6 ml-auto mr-auto">
+                <div class="form-group">
+                  <form class="navbar-form d-flex" action="{% url 'quote' %}" method="get">
+										<input class="form-control me-2" type="search" placeholder="Enter symbol" aria-label="Search" name="symbol">
+                    <!-- <input type="search" class="form-control" placeholder="Enter symbol" name="symbol"> -->
+                    <button class="btn btn-outline-white" type="submit" >
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+
+
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+
+    </div>
+
+
+
+
+	</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}
