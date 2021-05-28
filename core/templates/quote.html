@@ -136,7 +136,75 @@
 					</div>
 					<!-- Company financials END -->
 
-					
+					<!-- Company about -->
+					<div class="card">
+						<!-- Card header -->
+						<div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+                <h4 class="card-title">About</h4>
+                <div class="card-tools">
+									<button class="btn btn-icon btn-link btn-primary btn-xs" data-toggle="collapse" data-target="#about-collapse"><span class="fa fa-angle-down"></span></button>
+                </div>
+							</div>
+							<!-- <p class="card-category"> {{description}}</p> -->
+						</div>
+
+						<!-- Card contents: US symbols -->
+						<div class="panel-collapse collapse show" id="about-collapse">
+							<div class="card-body" id="default_US" style="display: block;">
+
+								<!-- About -->
+								<div class="d-flex bg-clr-hover">
+									<p class="card-category"> {{description}}</p>
+								</div>
+								<div class="separator-dashed"></div>
+
+								<!-- CEO -->
+								<div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>CEO</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b>{{CEO}}</b></h6>
+                  </div>
+                </div>
+	              <div class="separator-dashed"></div>
+								<!-- Address -->
+								<div class="d-flex bg-clr-hover">
+                  <div class="flex-1 align-self-center">
+                    <p class="card-text"><small>Address</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+										<h6 class="card-text"><b>{{address}},{{city}},{{state}},{{country}}</b></h6>
+                  </div>
+                </div>
+	              <div class="separator-dashed"></div>
+								<!-- Website -->
+								<div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>Website</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b><a href="{{websote}}">{{website}}</a></b></h6>
+                  </div>
+                </div>
+	              <div class="separator-dashed"></div>
+								<!-- Employees -->
+								<div class="d-flex bg-clr-hover">
+                  <div class="flex-1">
+                    <p class="card-text"><small>Employees</small></p>
+                  </div>
+                  <div class="float-right align-self-center">
+                    <h6 class="card-text"><b>{{employees}}</b></h6>
+                  </div>
+                </div>
+	              <div class="separator-dashed"></div>
+
+							</div>
+						</div>
+					</div>
+
+
 				</div>
         <!-- LHS widget END -->
 
