@@ -410,8 +410,8 @@ def quote(request):
             return HttpResponse(html_template.render(context, request))
 
         for i in range(len(articles)):
-            # Only load 12 english articles
-            if len(article_sources) == 12:
+            # Load 12 english articles
+            if len(article_sources) == 15:
                 break
             f = articles[i]
             # Only save english language articles

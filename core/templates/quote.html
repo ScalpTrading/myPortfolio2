@@ -154,13 +154,13 @@
 							<div class="card-body" id="default_US" style="display: block;">
 
 								<!-- About -->
-								<div class="d-flex bg-clr-hover">
+								<div class="d-flex">
 									<p class="card-category"> {{description}}</p>
 								</div>
 								<div class="separator-dashed"></div>
 
 								<!-- CEO -->
-								<div class="d-flex bg-clr-hover">
+								<div class="d-flex">
                   <div class="flex-1">
                     <p class="card-text"><small>CEO</small></p>
                   </div>
@@ -170,7 +170,7 @@
                 </div>
 	              <div class="separator-dashed"></div>
 								<!-- Address -->
-								<div class="d-flex bg-clr-hover">
+								<div class="d-flex">
                   <div class="flex-1 align-self-center">
                     <p class="card-text"><small>Address</small></p>
                   </div>
@@ -180,7 +180,7 @@
                 </div>
 	              <div class="separator-dashed"></div>
 								<!-- Website -->
-								<div class="d-flex bg-clr-hover">
+								<div class="d-flex">
                   <div class="flex-1">
                     <p class="card-text"><small>Website</small></p>
                   </div>
@@ -190,7 +190,7 @@
                 </div>
 	              <div class="separator-dashed"></div>
 								<!-- Employees -->
-								<div class="d-flex bg-clr-hover">
+								<div class="d-flex">
                   <div class="flex-1">
                     <p class="card-text"><small>Employees</small></p>
                   </div>
@@ -250,8 +250,8 @@
 						</div>
 
 						<!-- Body: Financial news -->
-						<div class="card-body" id="US_bz_news" style="display: block;">
-							{% for src, title, url, publishedAt, img in fin_articles %}
+						<div class="card-body" id="symbol_news" style="display: block;">
+							{% for src, title, url, publishedAt, img in symbol_articles %}
 								<div class="d-flex">
 									<div class="flex-1">
 										<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
