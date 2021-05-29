@@ -14,9 +14,11 @@
 			<div class="page-inner py-5">
 				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
 					<div>
-						<h2 class="text-white pb-2 fw-bold"> <small> <a href="#"><i class="flaticon-home"></i></a> <i class="flaticon-right-arrow"></i> </small> News</h2>
-						<a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_US_news" onclick="load_news('US_gen')">US</a>
-            <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_news" onclick="load_news('UK_gen')">UK</a>
+						<h2 class="text-white fw-bold"> <small> <a href="#"><i class="flaticon-home"></i></a> <i class="flaticon-right-arrow"></i> </small> News</h2>
+						<p class="text-white"> Regions: &nbsp
+							<a class="btn btn-secondary btn-round btn-sm" id="btn_US_news" onclick="load_news('US_gen')">US</a>
+							<a class="btn btn-transparent btn-round btn-sm" id="btn_UK_news" onclick="load_news('UK_gen')">UK</a>
+					 	</p>
 					</div>
 					<div class="ml-md-auto py-2 py-md-0">
 						<a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
@@ -36,10 +38,11 @@
             <!-- Header -->
             <div class="card-header">
 							<div class="card-head-row card-tools-still-right">
-                <a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_US_gen_news" onclick="load_news('US_gen')">General</a>
-                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_bz_news" onclick="load_news('US_bz')">Business</a>
-                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_tech_news" onclick="load_news('US_tech')">Technology</a>
-								<a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_US_sports_news" onclick="load_news('US_sports')">Sports</a>
+								<div class="card-description fw-bold">Categories: &nbsp &nbsp</div>
+                <a class="btn btn-secondary btn-round btn-sm" id="btn_US_gen_news" onclick="load_news('US_gen')">General</a>
+                <a class="btn btn-transparent btn-round btn-sm" id="btn_US_bz_news" onclick="load_news('US_bz')">Business</a>
+                <a class="btn btn-transparent btn-round btn-sm" id="btn_US_tech_news" onclick="load_news('US_tech')">Technology</a>
+								<a class="btn btn-transparent btn-round btn-sm" id="btn_US_sports_news" onclick="load_news('US_sports')">Sports</a>
 								<div class="card-tools">
 									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card" onClick="window.location.reload();"><span class="fa fa-sync-alt"></span></button>
 								</div>
@@ -117,10 +120,11 @@
             <!-- Header -->
             <div class="card-header">
 							<div class="card-head-row card-tools-still-right">
-                <a class="btn btn-secondary btn-sm btn-round mr-2" id="btn_UK_gen_news" onclick="load_news('UK_gen')">General</a>
-                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_bz_news" onclick="load_news('UK_bz')">Business</a>
-                <a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_tech_news" onclick="load_news('UK_tech')">Technology</a>
-								<a class="btn btn-secondary btn-sm btn-border btn-round mr-2" id="btn_UK_sports_news" onclick="load_news('UK_sports')">Sports</a>
+								<div class="card-description fw-bold">Categories: &nbsp &nbsp</div>
+                <a class="btn btn-secondary btn-sm mr-2" id="btn_UK_gen_news" onclick="load_news('UK_gen')">General</a>
+                <a class="btn btn-secondary btn-sm btn-border mr-2" id="btn_UK_bz_news" onclick="load_news('UK_bz')">Business</a>
+                <a class="btn btn-secondary btn-sm btn-border mr-2" id="btn_UK_tech_news" onclick="load_news('UK_tech')">Technology</a>
+								<a class="btn btn-secondary btn-sm btn-border mr-2" id="btn_UK_sports_news" onclick="load_news('UK_sports')">Sports</a>
 								<div class="card-tools">
 									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card" onClick="window.location.reload();"><span class="fa fa-sync-alt"></span></button>
 								</div>
@@ -244,12 +248,12 @@
 				document.querySelector('#US_sports_news').style.display = 'none'
 
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-transparent btn-round btn-sm';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-transparent btn-round btn-sm';
 
       }
 
@@ -263,12 +267,12 @@
 				document.querySelector('#US_sports_news').style.display = 'none'
 
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_gen_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-transparent btn-round btn-sm';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-transparent btn-round btn-sm';
       }
 
       else if (region == 'US_tech') {
@@ -281,12 +285,12 @@
 				document.querySelector('#US_sports_news').style.display = 'none'
 
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_gen_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-round btn-sm';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-transparent btn-round btn-sm';
       }
 
 			else if (region == 'US_sports') {
@@ -299,12 +303,12 @@
 				document.querySelector('#US_sports_news').style.display = 'block'
 
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_US_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_gen_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_bz_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_US_tech_news').className = 'btn btn-transparent btn-round btn-sm';
+				document.getElementById('btn_US_sports_news').className = 'btn btn-secondary btn-round btn-sm';
       }
 
       else if (region == 'UK_gen') {
@@ -316,12 +320,12 @@
         document.querySelector('#UK_tech_news').style.display = 'none'
 				document.querySelector('#UK_sports_news').style.display = 'none'
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-transparent btn-round btn-sm';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-transparent btn-round btn-sm';
       }
 
       else if (region == 'UK_bz') {
@@ -333,12 +337,12 @@
         document.querySelector('#UK_tech_news').style.display = 'none'
 				document.querySelector('#UK_sports_news').style.display = 'none'
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-transparent btn-round btn-sm';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-transparent btn-round btn-sm';
       }
 
       else if (region == 'UK_tech') {
@@ -350,12 +354,12 @@
         document.querySelector('#UK_tech_news').style.display = 'block'
 				document.querySelector('#UK_sports_news').style.display = 'none'
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-round btn-sm';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-transparent btn-round btn-sm';
       }
 
 			else if (region == 'UK_sports') {
@@ -367,12 +371,12 @@
         document.querySelector('#UK_tech_news').style.display = 'none'
 				document.querySelector('#UK_sports_news').style.display = 'block'
         // Adjust buttons
-        document.getElementById('btn_US_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
-        document.getElementById('btn_UK_gen_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_bz_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-        document.getElementById('btn_UK_tech_news').className = 'btn btn-secondary btn-sm btn-border btn-round mr-2';
-				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-sm btn-round mr-2';
+        document.getElementById('btn_US_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_news').className = 'btn btn-secondary btn-round btn-sm';
+        document.getElementById('btn_UK_gen_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_bz_news').className = 'btn btn-transparent btn-round btn-sm';
+        document.getElementById('btn_UK_tech_news').className = 'btn btn-transparent btn-round btn-sm';
+				document.getElementById('btn_UK_sports_news').className = 'btn btn-secondary btn-round btn-sm';
       }
 
     }

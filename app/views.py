@@ -51,7 +51,7 @@ def pages(request):
 def news(request):
 
     # Number of articles to load
-    article_nos = 10
+    article_nos = 1
 
     # US general news
     US_gen_articles = news_lookup("US_general")["articles"]
