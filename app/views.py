@@ -518,7 +518,8 @@ def watchlist(request, symbol):
         if already_exist:
             Watchlist.objects.filter(user=user, symbol=symbol).delete()
             return JsonResponse({
-                "message": "Removed from watchlist",
+                "user": str(user),
+                "message": symbol + " removed from watchlist",
             }, status=201)
 
         # If doesn't exist, log symbol for user's watchlist
@@ -526,7 +527,8 @@ def watchlist(request, symbol):
             newSymbol = Watchlist.objects.create(user=user, symbol=symbol)
             newSymbol.save()
             return JsonResponse({
-                "message": "Added to watchlist",
+                "user": str(user),
+                "message": symbol + " added to watchlist",
             }, status=201)
 
 

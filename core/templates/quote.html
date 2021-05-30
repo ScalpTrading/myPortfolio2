@@ -313,14 +313,33 @@
 		  })
 		  .then(response => response.json())
 		  .then(result => {
-		    // Change button from '+ watchlist'
-		    if (result['message'] == "Added to watchlist") {
+		    // Change button to filled bookmark
+		    if (result['message'] == `${symbol} added to watchlist`) {
 		      watchlist_btn.innerHTML = '<span class="fas fa-bookmark">'
 		    }
-		    // Change button from '- watchlist'
-		    if (result['message'] == "Removed from watchlist") {
+		    // Change button to hollow bookmark
+		    if (result['message'] == `${symbol} removed from watchlist`) {
 		      watchlist_btn.innerHTML = '<span class="far fa-bookmark">'
 		    }
+
+				// Display notification
+				var content = {};
+
+				content.title = result['user']+ "'s watchlist";
+				content.message = result['message'];
+				content.icon = 'flaticon-alarm-1';
+				content.target = '_blank';
+
+				$.notify(content,{
+					type: 'info',
+					placement: {
+						from: 'bottom',
+						align: 'right'
+					},
+					time: 1000,
+				});
+
+
 		  });
 		}
 	</script>
