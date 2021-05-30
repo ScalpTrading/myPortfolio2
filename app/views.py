@@ -8,7 +8,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
+from django.views.decorators.csrf import csrf_exempt
 
+from .models import *
 from .helpers import *
 from datetime import datetime, timezone
 import maya
@@ -453,11 +455,11 @@ def quote(request):
         employees = info["employees"]
 
         # Check if user has added symbol to watchlist
-        # if request.user.is_anonymous == False:
-        #     user=request.user
-        #     already_exist = Watchlist.objects.filter(user=user, symbol=symbol).exists()
-        # else:
-        #     already_exist = None
+        if request.user.is_anonymous == False:
+            user=request.user
+            already_exist = Watchlist.objects.filter(user=user, symbol=symbol).exists()
+        else:
+            already_exist = None
 
         # IEX Cloud API call
         instrument = iex_lookup(symbol)
@@ -495,16 +497,43 @@ def quote(request):
                 "country": country,
                 "website": website,
                 "employees": employees,
-                # "already_exist": already_exist,
+                "already_exist": already_exist,
             }
 
             html_template = loader.get_template( 'quote.html' )
             return HttpResponse(html_template.render(context, request))
 
+@csrf_exempt
+@login_required(login_url="/login/")
+def watchlist(request, symbol):
+    """To add/remove symbol to/from user's watchlist"""
+    if request.method == "POST":
+        # Find logged in user
+        user = request.user
+
+        # Check if symbol already exists in User's watchlist
+        already_exist = Watchlist.objects.filter(user=user, symbol=symbol).exists()
+
+        # If already exists, remove from watchlist
+        if already_exist:
+            Watchlist.objects.filter(user=user, symbol=symbol).delete()
+            return JsonResponse({
+                "message": "Removed from watchlist",
+            }, status=201)
+
+        # If doesn't exist, log symbol for user's watchlist
+        else:
+            newSymbol = Watchlist.objects.create(user=user, symbol=symbol)
+            newSymbol.save()
+            return JsonResponse({
+                "message": "Added to watchlist",
+            }, status=201)
+
+
 @login_required(login_url="/login/")
 def test(request):
     context = {
-        "test": "Dinner lol",
+        "test": "Dinner?",
     }
 
     html_template = loader.get_template( 'test.html' )

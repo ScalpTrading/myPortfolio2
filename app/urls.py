@@ -20,5 +20,8 @@ urlpatterns = [
     path("quote", views.quote, name="quote"),
     path("test", views.test, name="test"),
 
+    #API routes
+    path("watchlist/<str:symbol>", views.watchlist, name='watchlist'),
+
 
 ]

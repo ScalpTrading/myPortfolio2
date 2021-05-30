@@ -35,13 +35,13 @@
                 <h4 class="card-title">{{companyName}}</h4>
                 <div class="card-tools">
                   <!-- ********** User add symbol to watchlist TODO -->
-                  {% if user.is_authenticated %}
-                    {% if already_exist %}
-                      <button class="btn btn-icon btn-link btn-primary btn-xs" onclick="watchlist('{{symbol}}')"><span class="fas fa-angle-down"></span></button>
-                    {% else %}
-                      <button class="btn btn-icon btn-link btn-primary btn-xs" onclick="watchlist('{{symbol}}')"><span class="far fa-bookmark"></span></button>
-                    {% endif %}
+                  <!-- {% if user.is_authenticated %} -->
+                  {% if already_exist %}
+                    <button class="btn btn-icon btn-link btn-primary btn-xs" id="watchlist_btn" onclick="watchlist('{{symbol}}')"><span class="fas fa-bookmark"></span></button>
+                  {% else %}
+                    <button class="btn btn-icon btn-link btn-primary btn-xs" id="watchlist_btn" onclick="watchlist('{{symbol}}')"><span class="far fa-bookmark"></span></button>
                   {% endif %}
+                  <!-- {% endif %} -->
 
 									<button class="btn btn-icon btn-link btn-primary btn-xs" data-toggle="collapse" data-target="#data-collapse"><span class="fa fa-angle-down"></span></button>
                 </div>
@@ -281,6 +281,7 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 	<script>
+		// Switch between US symbols and ETFs
 		function load_tickers(category) {
 			// Show US symbols
 			if (category == 'US') {
@@ -300,6 +301,27 @@
 				document.getElementById('btn_US_tickers').className = 'btn btn-info btn-border btn-round btn-sm mr-1';
 				document.getElementById('btn_ETFs_tickers').className = 'btn btn-info btn-round btn-sm mr-1';
 			}
+		}
+
+		// Add/remove symbol to/from user watchlist
+		function watchlist(symbol) {
+		  var watchlist_btn = document.querySelector(`#watchlist_btn`);
+
+		  // POST request
+		  fetch(`/watchlist/${symbol}`, {
+		      method: 'POST'
+		  })
+		  .then(response => response.json())
+		  .then(result => {
+		    // Change button from '+ watchlist'
+		    if (result['message'] == "Added to watchlist") {
+		      watchlist_btn.innerHTML = '<span class="fas fa-bookmark">'
+		    }
+		    // Change button from '- watchlist'
+		    if (result['message'] == "Removed from watchlist") {
+		      watchlist_btn.innerHTML = '<span class="far fa-bookmark">'
+		    }
+		  });
 		}
 	</script>
 
