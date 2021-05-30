@@ -17,9 +17,111 @@ import maya
 
 @login_required(login_url="/login/")
 def index(request):
+    """User dashboard"""
 
-    context = {}
-    context['segment'] = 'index'
+    # Number of articles to load for each symbol in user's watchlist
+    article_nos = 3
+
+    # Find logged in user
+    user = request.user
+
+    # Logged in user's watchlist symbols
+    watchlist_symbols = Watchlist.objects.filter(user=user).values('symbol')
+    usr_symbols = []
+    for symbol in watchlist_symbols:
+        usr_symbols.append(symbol["symbol"])
+
+    # symbol info via IEX cloud batch call
+    try:
+        symbols = iex_batch_lookup(usr_symbols)
+        companyNames = symbols["companyNames"]
+        latestPrices = symbols["latestPrices"]
+        changePercents = symbols["changePercents"]
+
+        tickers = zip(companyNames, latestPrices, changePercents, usr_symbols)
+    except:
+        tickers = None
+
+    # Trading view overview gadget symbol input
+    try:
+        symbol_1 = usr_symbols[0]
+    except:
+        symbol_1 = None
+    try:
+        symbol_2 = usr_symbols[1]
+    except:
+        symbol_2 = None
+    try:
+        symbol_3 = usr_symbols[2]
+    except:
+        symbol_3 = None
+    try:
+        symbol_4 = usr_symbols[3]
+    except:
+        symbol_4 = None
+    try:
+        symbol_5 = usr_symbols[4]
+    except:
+        symbol_5 = None
+    try:
+        symbol_6 = usr_symbols[5]
+    except:
+        symbol_6 = None
+
+    # Store articles
+    article_sources = []
+    article_titles = []
+    article_urls = []
+    article_publishedAts = []
+    article_imgs = []
+
+    if len(usr_symbols) > 0:
+        for symbol in usr_symbols:
+            # Symbol specific news
+            articles = iex_news_lookup(symbol, article_nos)
+
+            for i in range(len(articles)):
+                f = articles[i]
+                # Only save english language articles
+                if f["lang"] == "en":
+                    article_sources.append(f["source"])
+                    article_titles.append(f["headline"])
+                    article_urls.append(f["url"])
+                    article_imgs.append(f["image"])
+
+                    # Convert datetime from millisecond epoch to datetime format
+                    s = f["datetime"] / 1000
+                    dt = datetime.fromtimestamp(s).strftime('%Y-%m-%d %H:%M:%S.%f')
+
+                    #Parse delta time since article's publishing time
+                    dt = maya.parse(dt).datetime().replace(microsecond=0, second=0, minute=0)
+                    now = datetime.now(timezone.utc).replace(microsecond=0, second=0, minute=0)
+                    difference = datetime.now(timezone.utc)-maya.parse(dt).datetime()
+                    if str(now-dt)[0] == "0":
+                        dt_difference = "Less than an hour ago"
+                    elif "1 day" in str(now-dt):
+                        dt_difference = "over a day ago"
+                    elif "2 day" in str(now-dt):
+                        dt_difference = "over 2 days ago"
+                    else:
+                        dt_difference = str(difference.seconds//3600) +" hours ago"
+                    article_publishedAts.append(dt_difference)
+
+        symbol_articles = zip(article_sources, article_titles, article_urls, article_publishedAts, article_imgs)
+
+    context = {
+        "segment": "index",
+        "user": str(user),
+        "usr_symbols": usr_symbols,
+        "tickers": tickers,
+        "symbol_1": symbol_1,
+        "symbol_2": symbol_2,
+        "symbol_3": symbol_3,
+        "symbol_4": symbol_4,
+        "symbol_5": symbol_5,
+        "symbol_6": symbol_6,
+        "symbol_articles": symbol_articles,
+    }
 
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
@@ -53,7 +155,7 @@ def pages(request):
 def news(request):
 
     # Number of articles to load
-    article_nos = 1
+    article_nos = 10
 
     # US general news
     US_gen_articles = news_lookup("US_general")["articles"]
