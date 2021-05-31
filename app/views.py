@@ -20,7 +20,7 @@ def index(request):
     """User dashboard"""
 
     # Number of articles to load for each symbol in user's watchlist
-    article_nos = 3
+    article_nos = 2
 
     # Find logged in user
     user = request.user
@@ -76,7 +76,11 @@ def index(request):
     article_imgs = []
 
     if len(usr_symbols) > 0:
+
         for symbol in usr_symbols:
+            # Cap number of articles at 15
+            if len(article_sources) > 15:
+                break
             # Symbol specific news
             articles = iex_news_lookup(symbol, article_nos)
 
@@ -107,7 +111,7 @@ def index(request):
                         dt_difference = str(difference.seconds//3600) +" hours ago"
                     article_publishedAts.append(dt_difference)
 
-        symbol_articles = zip(article_sources, article_titles, article_urls, article_publishedAts, article_imgs)
+    symbol_articles = zip(article_sources, article_titles, article_urls, article_publishedAts, article_imgs)
 
     context = {
         "segment": "index",

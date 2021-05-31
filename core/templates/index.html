@@ -30,8 +30,8 @@
 			<div class="row mt--2">
 
 				<!-- LHS Overview widget -->
-				<div class="col-md-5">
-					<div class="card full-height">
+				<div class="col-5">
+					<div class="card">
 
 						<!-- Tradingview Widget -->
 						<div class="tradingview-widget-container">
@@ -178,31 +178,44 @@
 					</div>
 				</div>
 
-
-				<div class="col-md-7">
-					<div class="card full-height">
-						<div class="card-body">
-							<div class="card-title">Total income & spend statistics</div>
-							<div class="row py-3">
-								<div class="col-md-4 d-flex flex-column justify-content-around">
-									<div>
-										<h6 class="fw-bold text-uppercase text-success op-8">Total Income</h6>
-										<h3 class="fw-bold">$9.782</h3>
-									</div>
-									<div>
-										<h6 class="fw-bold text-uppercase text-danger op-8">Total Spend</h6>
-										<h3 class="fw-bold">$1,248</h3>
-									</div>
-								</div>
-								<div class="col-md-8">
-									<div id="chart-container">
-										<canvas id="totalIncomeChart"></canvas>
-									</div>
+				<!-- Watchlist news -->
+				<div class="col-7">
+					<div class="card">
+						<!-- Card header -->
+						<div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+								<div class="card-title">Watchlist top stories</div>
+								<div class="card-tools">
+									<button class="btn btn-icon btn-link btn-primary btn-xs" data-toggle="collapse" data-target="#data-collapse"><span class="fa fa-angle-down"></span></button>
 								</div>
 							</div>
 						</div>
+
+						<!-- Card body - news -->
+						<div class="panel-collapse collapse show" id="data-collapse">
+							<div class="card-body" id="Fin_news" style="display: block;">
+								{% for src, title, url, publishedAt, img in symbol_articles %}
+									<div class="d-flex">
+										<div class="flex-1">
+											<p class="card-text"><small class="text-muted">{{src}} • {{publishedAt}}</small></p>
+											<a href="{{url}}" class="deco-none" target="_blanks"><p class="card-text">{{title}}</p></a>
+										</div>
+										<div class="float-right">
+											<a href="{{url}}" target="_blank"><img src="{{img}}" onerror="this.style.display='none'" class="img-responsive fit-image rounded" style="max-width: 200px;" alt=""></a>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+								{% endfor %}
+							</div>
+						</div>
+
 					</div>
 				</div>
+				<!-- Watchlist news END -->
+
+
+
+
 			</div>
 
 			<div class="row">

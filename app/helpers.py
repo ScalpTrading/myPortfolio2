@@ -78,9 +78,10 @@ def iex_news_lookup(symbol, no_articles):
     # Contact API
     try:
         #api_key = "pk_6d527fd4c0c141e7a54cb4e5e8bb61b0"
-        api_key = "pk_55cc84e85d3840ffb346e1f33fcffa7b"
+        #api_key = "pk_55cc84e85d3840ffb346e1f33fcffa7b"
+        api_key = "pk_30b9cd59cf8d4cc8860dd7d787095b53"
         response = requests.get(f"https://cloud.iexapis.com/stable/stock/{urllib.parse.quote_plus(symbol)}/news/last/{no_articles}?token={api_key}")
-        #https://cloud.iexapis.com/stable/stock/AAPL/news?token=pk_6d527fd4c0c141e7a54cb4e5e8bb61b0
+        #https://cloud.iexapis.com/stable/stock/AAPL/news/last/2?token=pk_30b9cd59cf8d4cc8860dd7d787095b53
 
     except:
         return None
