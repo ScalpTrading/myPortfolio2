@@ -637,6 +637,11 @@ def watchlist(request, symbol):
                 "message": symbol + " added to watchlist",
             }, status=201)
 
+@login_required(login_url="/login/")
+def paper_trading(request):
+    """Simulated stock market trading"""
+    pass
+
 
 @login_required(login_url="/login/")
 def test(request):

@@ -19,6 +19,7 @@ urlpatterns = [
     path("finance", views.finance, name="finance"),
     path("quote", views.quote, name="quote"),
     path("test", views.test, name="test"),
+    path("paper_trading", views.paper_trading, name="paper_trading"),
 
     #API routes
     path("watchlist/<str:symbol>", views.watchlist, name='watchlist'),

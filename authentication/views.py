@@ -13,6 +13,9 @@ from django.forms.utils import ErrorList
 from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm
 
+# Test (?)
+from app.models import Cash
+
 def login_view(request):
     form = LoginForm(request.POST or None)
 
@@ -27,10 +30,10 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect("/")
-            else:    
-                msg = 'Invalid credentials'    
+            else:
+                msg = 'Invalid credentials'
         else:
-            msg = 'Error validating the form'    
+            msg = 'Error validating the form'
 
     return render(request, "accounts/login.html", {"form": form, "msg" : msg})
 
@@ -47,13 +50,17 @@ def register_user(request):
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
 
+            # Create cash profile for paper trading
+            cash = Cash.objects.create(user=user)
+            cash.save()
+
             msg     = 'User created - please <a href="/login">login</a>.'
             success = True
-            
+
             #return redirect("/login/")
 
         else:
-            msg = 'Form is not valid'    
+            msg = 'Form is not valid'
     else:
         form = SignUpForm()
 
