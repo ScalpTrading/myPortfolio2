@@ -240,8 +240,35 @@
 	          <!-- TradingView Widget END -->
 	        </div>
 
-					<div class="card">
+					<!-- Paper Trading -->
+					<div class="card card-primary">
+						<!-- Card header -->
+						<div class="card-header">
+							<div class="card-head-row card-tools-still-right">
+								<div class="card-title">Paper trading: Buy {{companyName}}</div>
+								<div class="card-tools">
+									<button class="btn btn-icon btn-link btn-white btn-xs" data-toggle="collapse" data-target="#pt-collapse"><span class="fa fa-angle-down"></span></button>
+								</div>
+							</div>
+						</div>
+						<!-- Card body -->
+						<div class="panel-collapse collapse show" id="pt-collapse">
+							<div class="card-body" id="papertrading">
+								<label>Number of shares</label>
+								<div class="form-group form-floating-label">
+									<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+								</div>
 
+
+							</div>
+						</div>
+
+
+					</div>
+
+
+					<!-- Financial news -->
+					<div class="card">
 						<!-- Card header -->
 						<div class="card-header">
 							<div class="card-head-row card-tools-still-right">
@@ -249,7 +276,7 @@
 							</div>
 						</div>
 
-						<!-- Body: Financial news -->
+						<!-- Card body-->
 						<div class="card-body" id="symbol_news" style="display: block;">
 							{% for src, title, url, publishedAt, img in symbol_articles %}
 								<div class="d-flex">
@@ -264,9 +291,8 @@
 								<div class="separator-dashed"></div>
 							{% endfor %}
 						</div>
-
-
 					</div>
+					<!-- Financial news END -->
 				</div>
 
 
