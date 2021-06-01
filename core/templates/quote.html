@@ -279,7 +279,7 @@
 										</div>
 									</div>
 									<!-- Shares value total -->
-									<div class="card-text" id="shares_value" value="0"><small>$</small>0<small>USD</small></div>
+									<div class="card-title" id="shares_value" value="0"><small>$</small>0<small>USD</small></div>
 								</form>
 
 
@@ -402,10 +402,10 @@
 		    shares++;
 		    document.getElementById('shares').value = shares;
 				// Update shareprice total
-				var share_price = parseInt(document.getElementById('share_price').value);
-				var shares_value = share_price * shares;
+				var share_price = parseFloat(document.getElementById('share_price').value);
+				var shares_value = Math.round( (share_price * shares) * 100)/100; // Round to 2 decimal places
 				document.getElementById('shares_value').value = shares_value;
-				document.getElementById('shares_value').innerHTML = shares_value;
+				document.getElementById('shares_value').innerHTML = '<small>$</small>'+ shares_value + '<small>USD</small>';
 		}
 
 		// Paper trading: decrease number of shares
@@ -417,36 +417,27 @@
 			}
 			document.getElementById('shares').value = shares;
 			// Update shareprice total
-			var share_price = parseInt(document.getElementById('share_price').value);
-			var shares_value = share_price * shares;
+			var share_price = parseFloat(document.getElementById('share_price').value);
+			var shares_value = Math.round( (share_price * shares) * 100)/100; // Round to 2 decimal places
 			document.getElementById('shares_value').value = shares_value;
-			document.getElementById('shares_value').innerHTML = shares_value;
+			document.getElementById('shares_value').innerHTML = '<small>$</small>'+ shares_value + '<small>USD</small>';
 		}
 
 		// jQuery to update shareprice total on user input
 		$("#shares").on("change keyup paste click input", function(){
 			var shares = parseInt(document.getElementById('shares').value, 10);
-			var share_price = parseInt(document.getElementById('share_price').value);
-			var shares_value = share_price * shares;
-			if (shares_value == 0) {
-				document.getElementById('shares_value').value = 0;
-				document.getElementById('shares_value').innerHTML = 0;
+			var share_price = parseFloat(document.getElementById('share_price').value);
+			var shares_value = Math.round( (share_price * shares) * 100)/100; // Round to 2 decimal places
+			if (shares>0) {
+				document.getElementById('shares_value').value = shares_value;
+				document.getElementById('shares_value').innerHTML = '<small>$</small>'+ shares_value + '<small>USD</small>';
 			}
 			else {
-				document.getElementById('shares_value').value = shares_value;
-				document.getElementById('shares_value').innerHTML = shares_value;
+				document.getElementById('shares_value').value = 0;
+				document.getElementById('shares_value').innerHTML = '<small>$</small>'+ 0 + '<small>USD</small>';;
 			}
-		})
 
-		// Event listener to listen to numbers of shares input change
-		// document.getElementByID('shares').addEventListener('change', function() {
-		// 	var shares = parseInt(document.getElementById('shares').value, 10);
-		// 	var share_price = parseInt(document.getElementById('share_price').value);
-		// 	var shares_value = share_price * shares;
-		// 	document.getElementById('shares_value').value = shares_value;
-		// 	document.getElementById('shares_value').innerHTML = shares_value;
-		//
-		// })
+		})
 
 	</script>
 
