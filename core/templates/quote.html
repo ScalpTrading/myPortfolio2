@@ -245,7 +245,7 @@
 						<!-- Card header -->
 						<div class="card-header">
 							<div class="card-head-row card-tools-still-right">
-								<div class="card-title">Paper trading: Buy {{companyName}}</div>
+								<div class="card-title">Paper trading</div>
 								<div class="card-tools">
 									<button class="btn btn-icon btn-link btn-white btn-xs" data-toggle="collapse" data-target="#pt-collapse"><span class="fa fa-angle-down"></span></button>
 								</div>
@@ -253,11 +253,31 @@
 						</div>
 						<!-- Card body -->
 						<div class="panel-collapse collapse show" id="pt-collapse">
-							<div class="card-body" id="papertrading">
-								<label>Number of shares</label>
-								<div class="form-group form-floating-label">
-									<input type="text" class="form-control" aria-label="Shares" placeholder="0" name="shares">
-								</div>
+							<div class="card-body text-center" id="papertrading">
+								<div class="card-title mb-1"> Buy {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></div>
+								<div class="card-text"> Number of shares </div>
+								<!-- Number of shares form -->
+								<form>
+									<div class="row d-flex justify-content-center">
+										<div class="col-md-6">
+
+											<div class="form-group">
+												<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text" onclick="decrementValue()"><i class="fas fa-minus"></i></span>
+													</div>
+													<input type="text" class="form-control text-center" value="0" id="shares" name="shares" aria-label="shares">
+													<div class="input-group-append">
+														<span class="input-group-text" onclick="incrementValue()"><i class="fas fa-plus"></i></span>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+								</form>
+
 
 
 							</div>
@@ -368,6 +388,14 @@
 
 		  });
 		}
+
+		function incrementValue() {
+		    var value = parseInt(document.getElementById('shares').value, 10);
+		    value = isNaN(value) ? 0 : value;
+		    value++;
+		    document.getElementById('shares').value = value;
+		}
+
 	</script>
 
 
