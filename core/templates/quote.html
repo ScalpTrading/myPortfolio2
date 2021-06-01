@@ -241,7 +241,7 @@
 	        </div>
 
 					<!-- Paper Trading -->
-					<div class="card card-primary">
+					<div class="card card-primary bg-primary-gradient">
 						<!-- Card header -->
 						<div class="card-header">
 							<div class="card-head-row card-tools-still-right">
@@ -253,14 +253,18 @@
 						</div>
 						<!-- Card body -->
 						<div class="panel-collapse collapse show" id="pt-collapse">
-							<div class="card-body text-center" id="papertrading">
-								<div class="card-title mb-1"> Buy {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></div>
+							<div class="card-body text-center">
+								<h3 class="b-b1 fw-bold"> Buy {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
 								<div class="card-text"> Number of shares </div>
+
+								<!-- Hidden share price, to pass to javaScript function -->
+								<input type="hidden" id="share_price" value="{{latestPrice}}">
+
 								<!-- Number of shares form -->
 								<form>
 									<div class="row d-flex justify-content-center">
 										<div class="col-md-6">
-
+											<!-- Input for number of shares -->
 											<div class="form-group">
 												<div class="input-group">
 													<div class="input-group-prepend">
@@ -271,12 +275,14 @@
 														<span class="input-group-text" onclick="incrementValue()"><i class="fas fa-plus"></i></span>
 													</div>
 												</div>
-
 											</div>
-
 										</div>
 									</div>
+									<!-- Shares value total -->
+									<div class="card-text" id="shares_value" value="0"><small>$</small>0<small>USD</small></div>
 								</form>
+
+
 
 
 
@@ -389,12 +395,58 @@
 		  });
 		}
 
+		// Paper trading: increase number of shares
 		function incrementValue() {
-		    var value = parseInt(document.getElementById('shares').value, 10);
-		    value = isNaN(value) ? 0 : value;
-		    value++;
-		    document.getElementById('shares').value = value;
+		    var shares = parseInt(document.getElementById('shares').value, 10);
+		    shares = isNaN(shares) ? 0 : shares;
+		    shares++;
+		    document.getElementById('shares').value = shares;
+				// Update shareprice total
+				var share_price = parseInt(document.getElementById('share_price').value);
+				var shares_value = share_price * shares;
+				document.getElementById('shares_value').value = shares_value;
+				document.getElementById('shares_value').innerHTML = shares_value;
 		}
+
+		// Paper trading: decrease number of shares
+		function decrementValue() {
+			var shares = parseInt(document.getElementById('shares').value, 10);
+			shares = isNaN(shares) ? 0 : shares;
+			if (shares > 0) {
+				shares--;
+			}
+			document.getElementById('shares').value = shares;
+			// Update shareprice total
+			var share_price = parseInt(document.getElementById('share_price').value);
+			var shares_value = share_price * shares;
+			document.getElementById('shares_value').value = shares_value;
+			document.getElementById('shares_value').innerHTML = shares_value;
+		}
+
+		// jQuery to update shareprice total on user input
+		$("#shares").on("change keyup paste click input", function(){
+			var shares = parseInt(document.getElementById('shares').value, 10);
+			var share_price = parseInt(document.getElementById('share_price').value);
+			var shares_value = share_price * shares;
+			if (shares_value == 0) {
+				document.getElementById('shares_value').value = 0;
+				document.getElementById('shares_value').innerHTML = 0;
+			}
+			else {
+				document.getElementById('shares_value').value = shares_value;
+				document.getElementById('shares_value').innerHTML = shares_value;
+			}
+		})
+
+		// Event listener to listen to numbers of shares input change
+		// document.getElementByID('shares').addEventListener('change', function() {
+		// 	var shares = parseInt(document.getElementById('shares').value, 10);
+		// 	var share_price = parseInt(document.getElementById('share_price').value);
+		// 	var shares_value = share_price * shares;
+		// 	document.getElementById('shares_value').value = shares_value;
+		// 	document.getElementById('shares_value').innerHTML = shares_value;
+		//
+		// })
 
 	</script>
 
