@@ -14,6 +14,8 @@ from .models import *
 from .helpers import *
 from datetime import datetime, timezone
 import maya
+import json
+from django.http import JsonResponse
 
 @login_required(login_url="/login/")
 def index(request):
@@ -643,6 +645,32 @@ def watchlist(request, symbol):
 def paper_trading(request):
     """Simulated stock market trading"""
     pass
+
+@csrf_exempt
+@login_required(login_url="/login/")
+def buy(request):
+    # Get data contents
+    data = json.loads(request.body)
+    symbol = data.get("symbol", "")
+    shares = data.get("shares", "")
+    share_price = data.get("share_price", "")
+    shares_value = data.get("shares_value", "")
+
+    trade = Papertrading(
+        user = request.user,
+        symbol = symbol,
+        quantity = shares,
+        price = share_price,
+        total_amount = shares_value,
+    )
+    trade.save()
+
+    # update user cash balance
+    cash_balance = data.get("cash_balance", "")
+    new_cash_balance = cash_balance - shares_value
+    Cash.objects.filter(user=request.user).update(cash_balance=new_cash_balance)
+
+    return JsonResponse({"message": "Trade complete"}, status=201)
 
 
 @login_required(login_url="/login/")

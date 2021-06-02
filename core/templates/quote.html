@@ -445,9 +445,9 @@
 		$('#review_order').click(function(e) {
 			var symbol = document.getElementById('symbol').value;
 			var shares = document.getElementById('shares').value;
-			var share_price = document.getElementById('share_price').value;
-			var cash_balance = document.getElementById('cash_balance').value;
-			var shares_value = document.getElementById('shares_value_input').value;
+			var share_price = parseFloat(document.getElementById('share_price').value);
+			var cash_balance = parseFloat(document.getElementById('cash_balance').value);
+			var shares_value = parseFloat(document.getElementById('shares_value_input').value);
 
 			swal({
 				title: 'Review order',
@@ -455,7 +455,7 @@
 				type: 'warning',
 				buttons:{
 					confirm: {
-						text : 'Yes, delete it!',
+						text : 'Buy',
 						className : 'btn btn-success'
 					},
 					cancel: {
@@ -463,18 +463,40 @@
 						className: 'btn btn-danger'
 					}
 				}
-			}).then((Delete) => {
-				if (Delete) {
-					swal({
-						title: 'Deleted!',
-						text: 'Your file has been deleted.',
-						type: 'success',
-						buttons : {
-							confirm: {
-								className : 'btn btn-success'
-							}
+			}).then((Buy) => {
+				if (Buy) {
+					// POST request to urls /buy route
+					fetch('/buy', {
+						method: 'POST',
+						body: JSON.stringify({
+							symbol: symbol,
+							shares: shares,
+							share_price: share_price,
+							cash_balance: cash_balance,
+							shares_value: shares_value,
+						})
+					})
+					.then(response => response.json())
+					.then(result => {
+						// if trade completed succesfully
+						if ('message' in result) {
+							// Confirmation alert
+							swal({
+								title: 'Complete!',
+								text: 'Trade has been executed',
+								icon: "success",
+								type: 'success',
+								buttons : {
+									confirm: {
+										className : 'btn btn-success'
+									}
+								}
+							});
 						}
-					});
+					})
+
+
+
 				} else {
 					swal.close();
 				}
