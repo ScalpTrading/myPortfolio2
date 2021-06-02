@@ -656,16 +656,41 @@ def buy(request):
     share_price = data.get("share_price", "")
     shares_value = data.get("shares_value", "")
 
+    # Save to papertrading model
     trade = Papertrading(
         user = request.user,
         symbol = symbol,
         quantity = shares,
         price = share_price,
         total_amount = shares_value,
+        direction = "Buy",
     )
     trade.save()
 
-    # update user cash balance
+    # Update user portfolio holdings
+    try:
+        # Check user's current holdings for symbol
+        user_shares = int(Holdings.objects.get(user=request.user, symbol=symbol).quantity)
+        user_avg_price = float(Holdings.objects.get(user=request.user, symbol=symbol).avg_price)
+        new_shares = user_shares + int(shares)
+        new_avg_price = ( (user_avg_price * user_shares) + float(shares_value) ) / new_shares
+        new_total_amount = new_shares * new_avg_price
+        # Update number of shares and average share price
+        Holdings.objects.filter(user=request.user, symbol=symbol).update(quantity=new_shares)
+        Holdings.objects.filter(user=request.user, symbol=symbol).update(avg_price=new_avg_price)
+        Holdings.objects.filter(user=request.user, symbol=symbol).update(total_amount=new_total_amount)
+    # If user does not hold a position in symbol
+    except Holdings.DoesNotExist:
+        holding = Holdings(
+            user = request.user,
+            symbol = symbol,
+            quantity = shares,
+            avg_price = share_price,
+            total_amount = shares_value,
+        )
+        holding.save()
+
+    # Update user cash balance
     cash_balance = data.get("cash_balance", "")
     new_cash_balance = cash_balance - shares_value
     Cash.objects.filter(user=request.user).update(cash_balance=new_cash_balance)

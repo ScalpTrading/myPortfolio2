@@ -253,8 +253,10 @@
 						</div>
 						<!-- Card body -->
 						<div class="panel-collapse collapse show" id="pt-collapse">
-							<div class="card-body text-center">
-								<h3 class="b-b1 fw-bold"> Buy {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
+
+							<!-- Papertrading: buy -->
+							<div class="card-body text-center" id="papertrading_buy" styke-"display: block;">
+								<h3 class="b-b1 fw-bold"> {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
 								<div class="card-text"> Number of shares </div>
 
 								<!-- Hidden share price, to pass to javaScript function -->
@@ -264,7 +266,7 @@
 								<input type="hidden" id="shares_value_input" value=0>
 
 
-								<!-- Number of shares form -->
+								<!-- Buy: Number of shares form -->
 								<form>
 									<div class="row d-flex justify-content-center">
 										<div class="col-md-6">
@@ -284,11 +286,11 @@
 									</div>
 									<!-- Shares value total -->
 									<div class="card-title" id="shares_value" value="0"><small>$</small>0<small>USD</small></div>
-									<button type="button" class="btn btn-default btn-s" id="review_order">Review order</button>
-									{{cash_balance}}
+									<button type="button" class="btn btn-default btn-s" id="review_order">Buy order</button>
 								</form>
 
 							</div>
+							<!-- Papertrading: buy END -->
 						</div>
 
 
