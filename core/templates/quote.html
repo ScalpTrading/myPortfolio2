@@ -259,11 +259,13 @@
 								<button type="button" class="btn btn-default btn-rounded btn-border btn-s ml-2" id="btn_papertrading_sell" onclick="load_papertrading('sell')">Sell</button>
 							</div>
 
-							<!-- Papertrading: buy -->
+							<!-- Papertrading -->
 							<div class="card-body text-center" id="papertrading" style="display: block;">
 								<h3 class="b-b1 fw-bold" id="buy_header" style="display: block;"> Buy {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
 								<h3 class="b-b1 fw-bold" id="sell_header" style="display: none;"> Sell {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
-								<div class="card-text"> Number of shares </div>
+								<h3 id="user_shares" id="user_shares"> Current investment: {{quantity}} shares </h3>
+								<!-- <div class="card-text" id="user_shares"> Current position: <b>{{quantity}}</b> shares </div> -->
+								<div class="card-text"> Number of shares: </div>
 
 								<!-- Hidden share price, to pass to javaScript function -->
 								<input type="hidden" id="symbol" value="{{symbol}}">
@@ -297,7 +299,7 @@
 
 								</form>
 							</div>
-							<!-- Papertrading: buy END -->
+							<!-- Papertrading END -->
 
 						</div>
 
@@ -480,6 +482,7 @@
 			var share_price = parseFloat(document.getElementById('share_price').value);
 			var cash_balance = parseFloat(document.getElementById('cash_balance').value);
 			var shares_value = parseFloat(document.getElementById('shares_value_input').value);
+			var current_shares = document.getElementById('quantity').value;
 
 			swal({
 				title: 'Review order',
@@ -524,10 +527,11 @@
 									}
 								}
 							});
+							// Update share count
+							var new_quantity = parseInt(current_shares) + parseInt(shares);
+							document.getElementById('user_shares').innerHTML = 'Current investment: '+ new_quantity + ' shares';
 						}
 					})
-
-
 
 				} else {
 					swal.close();
