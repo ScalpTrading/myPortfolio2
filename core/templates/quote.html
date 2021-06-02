@@ -258,7 +258,11 @@
 								<div class="card-text"> Number of shares </div>
 
 								<!-- Hidden share price, to pass to javaScript function -->
+								<input type="hidden" id="symbol" value="{{symbol}}">
 								<input type="hidden" id="share_price" value="{{latestPrice}}">
+								<input type="hidden" id="cash_balance" value="{{cash_balance}}">
+								<input type="hidden" id="shares_value_input" value=0>
+
 
 								<!-- Number of shares form -->
 								<form>
@@ -280,11 +284,9 @@
 									</div>
 									<!-- Shares value total -->
 									<div class="card-title" id="shares_value" value="0"><small>$</small>0<small>USD</small></div>
+									<button type="button" class="btn btn-default btn-s" id="review_order">Review order</button>
+									{{cash_balance}}
 								</form>
-
-
-
-
 
 							</div>
 						</div>
@@ -404,7 +406,7 @@
 				// Update shareprice total
 				var share_price = parseFloat(document.getElementById('share_price').value);
 				var shares_value = Math.round( (share_price * shares) * 100)/100; // Round to 2 decimal places
-				document.getElementById('shares_value').value = shares_value;
+				document.getElementById('shares_value_input').value = shares_value;
 				document.getElementById('shares_value').innerHTML = '<small>$</small>'+ shares_value + '<small>USD</small>';
 		}
 
@@ -419,25 +421,65 @@
 			// Update shareprice total
 			var share_price = parseFloat(document.getElementById('share_price').value);
 			var shares_value = Math.round( (share_price * shares) * 100)/100; // Round to 2 decimal places
-			document.getElementById('shares_value').value = shares_value;
+			document.getElementById('shares_value_input').value = shares_value;
 			document.getElementById('shares_value').innerHTML = '<small>$</small>'+ shares_value + '<small>USD</small>';
 		}
 
-		// jQuery to update shareprice total on user input
+		// Paper trading: jQuery to update shareprice total on user input
 		$("#shares").on("change keyup paste click input", function(){
 			var shares = parseInt(document.getElementById('shares').value, 10);
 			var share_price = parseFloat(document.getElementById('share_price').value);
 			var shares_value = Math.round( (share_price * shares) * 100)/100; // Round to 2 decimal places
 			if (shares>0) {
-				document.getElementById('shares_value').value = shares_value;
+				document.getElementById('shares_value_input').value = shares_value;
 				document.getElementById('shares_value').innerHTML = '<small>$</small>'+ shares_value + '<small>USD</small>';
 			}
 			else {
-				document.getElementById('shares_value').value = 0;
+				document.getElementById('shares_value_input').value = 0;
 				document.getElementById('shares_value').innerHTML = '<small>$</small>'+ 0 + '<small>USD</small>';;
 			}
 
 		})
+
+		// Paper trading: User to review and submit order
+		$('#review_order').click(function(e) {
+			var symbol = document.getElementById('symbol').value;
+			var shares = document.getElementById('shares').value;
+			var share_price = document.getElementById('share_price').value;
+			var cash_balance = document.getElementById('cash_balance').value;
+			var shares_value = document.getElementById('shares_value_input').value;
+
+			swal({
+				title: 'Review order',
+				text: shares_value,
+				type: 'warning',
+				buttons:{
+					confirm: {
+						text : 'Yes, delete it!',
+						className : 'btn btn-success'
+					},
+					cancel: {
+						visible: true,
+						className: 'btn btn-danger'
+					}
+				}
+			}).then((Delete) => {
+				if (Delete) {
+					swal({
+						title: 'Deleted!',
+						text: 'Your file has been deleted.',
+						type: 'success',
+						buttons : {
+							confirm: {
+								className : 'btn btn-success'
+							}
+						}
+					});
+				} else {
+					swal.close();
+				}
+			});
+		});
 
 	</script>
 

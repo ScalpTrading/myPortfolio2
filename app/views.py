@@ -561,11 +561,11 @@ def quote(request):
         employees = info["employees"]
 
         # Check if user has added symbol to watchlist
-        if request.user.is_anonymous == False:
-            user=request.user
-            already_exist = Watchlist.objects.filter(user=user, symbol=symbol).exists()
-        else:
-            already_exist = None
+        user=request.user
+        already_exist = Watchlist.objects.filter(user=user, symbol=symbol).exists()
+
+        # Check user's cash balance
+        cash_balance = Cash.objects.get(user=user).cash_balance
 
         # IEX Cloud API call
         instrument = iex_lookup(symbol)
@@ -604,6 +604,8 @@ def quote(request):
                 "website": website,
                 "employees": employees,
                 "already_exist": already_exist,
+                #Added
+                "cash_balance": cash_balance,
             }
 
             html_template = loader.get_template( 'quote.html' )
