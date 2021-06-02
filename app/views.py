@@ -569,6 +569,12 @@ def quote(request):
         # Check user's cash balance
         cash_balance = Cash.objects.get(user=user).cash_balance
 
+        # Check user's existing position on symbol
+        try:
+            quantity = Holdings.objects.get(user=user, symbol=symbol).quantity
+        except:
+            quantity = 0
+
         # IEX Cloud API call
         instrument = iex_lookup(symbol)
         # If no data returned
@@ -606,8 +612,9 @@ def quote(request):
                 "website": website,
                 "employees": employees,
                 "already_exist": already_exist,
-                #Added
+                # User models
                 "cash_balance": cash_balance,
+                "quantity": quantity,
             }
 
             html_template = loader.get_template( 'quote.html' )

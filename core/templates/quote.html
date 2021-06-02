@@ -254,9 +254,15 @@
 						<!-- Card body -->
 						<div class="panel-collapse collapse show" id="pt-collapse">
 
+							<div class="text-center">
+								<button type="button" class="btn btn-default btn-rounded btn-s mr-2" id="btn_papertrading_buy" onclick="load_papertrading('buy')">Buy</button>
+								<button type="button" class="btn btn-default btn-rounded btn-border btn-s ml-2" id="btn_papertrading_sell" onclick="load_papertrading('sell')">Sell</button>
+							</div>
+
 							<!-- Papertrading: buy -->
-							<div class="card-body text-center" id="papertrading_buy" styke-"display: block;">
-								<h3 class="b-b1 fw-bold"> {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
+							<div class="card-body text-center" id="papertrading" style="display: block;">
+								<h3 class="b-b1 fw-bold" id="buy_header" style="display: block;"> Buy {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
+								<h3 class="b-b1 fw-bold" id="sell_header" style="display: none;"> Sell {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
 								<div class="card-text"> Number of shares </div>
 
 								<!-- Hidden share price, to pass to javaScript function -->
@@ -264,7 +270,7 @@
 								<input type="hidden" id="share_price" value="{{latestPrice}}">
 								<input type="hidden" id="cash_balance" value="{{cash_balance}}">
 								<input type="hidden" id="shares_value_input" value=0>
-
+								<input type="hidden" id="quantity" value="{{quantity}}">
 
 								<!-- Buy: Number of shares form -->
 								<form>
@@ -286,11 +292,13 @@
 									</div>
 									<!-- Shares value total -->
 									<div class="card-title" id="shares_value" value="0"><small>$</small>0<small>USD</small></div>
-									<button type="button" class="btn btn-default btn-s" id="review_order">Buy order</button>
-								</form>
+									<button type="button" class="btn btn-default btn-s" id="review_order_buy" style="display: inline-block;">Buy order</button>
+									<button type="button" class="btn btn-default btn-s" id="review_order_sell" style="display: none;">Sell order</button>
 
+								</form>
 							</div>
 							<!-- Papertrading: buy END -->
+
 						</div>
 
 
@@ -399,6 +407,28 @@
 		  });
 		}
 
+		// Paper trading: load buy or sell
+		function load_papertrading(direction) {
+			// Load Buy info
+			if (direction == 'buy') {
+				document.getElementById('btn_papertrading_buy').className = 'btn btn-default btn-rounded btn-s ml-2';
+				document.getElementById('btn_papertrading_sell').className = 'btn btn-default btn-rounded btn-border btn-s ml-2';
+				document.getElementById('buy_header').style.display = 'block';
+				document.getElementById('sell_header').style.display = 'none';
+				document.getElementById('review_order_buy').style.display = 'inline-block';
+				document.getElementById('review_order_sell').style.display = 'none';
+			}
+			// Load Sell info
+			if (direction == 'sell') {
+				document.getElementById('btn_papertrading_buy').className = 'btn btn-default btn-rounded btn-border btn-s ml-2';
+				document.getElementById('btn_papertrading_sell').className = 'btn btn-default btn-rounded btn-s ml-2';
+				document.getElementById('buy_header').style.display = 'none';
+				document.getElementById('sell_header').style.display = 'block';
+				document.getElementById('review_order_buy').style.display = 'none';
+				document.getElementById('review_order_sell').style.display = 'inline-block';
+			}
+		}
+
 		// Paper trading: increase number of shares
 		function incrementValue() {
 		    var shares = parseInt(document.getElementById('shares').value, 10);
@@ -444,7 +474,7 @@
 		})
 
 		// Paper trading: User to review and submit order
-		$('#review_order').click(function(e) {
+		$('#review_order_buy').click(function(e) {
 			var symbol = document.getElementById('symbol').value;
 			var shares = document.getElementById('shares').value;
 			var share_price = parseFloat(document.getElementById('share_price').value);
