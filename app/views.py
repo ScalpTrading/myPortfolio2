@@ -648,11 +648,6 @@ def watchlist(request, symbol):
                 "message": symbol + " added to watchlist",
             }, status=201)
 
-@login_required(login_url="/login/")
-def paper_trading(request):
-    """Simulated stock market trading"""
-    pass
-
 @csrf_exempt
 @login_required(login_url="/login/")
 def buy(request):
@@ -748,6 +743,36 @@ def sell(request):
 
     return JsonResponse({"message": "Trade complete"}, status=201)
 
+@login_required(login_url="/login/")
+def paper_trading(request):
+    """Simulated stock market trading overview page"""
+
+    # Find logged in user
+    user = request.user
+
+    # Logged in user's watchlist symbols
+    watchlist_symbols = Watchlist.objects.filter(user=user).values('symbol')
+    usr_symbols = []
+    for symbol in watchlist_symbols:
+        usr_symbols.append(symbol["symbol"])
+
+    try:
+        companyNames = iex_batch_lookup(usr_symbols)["companyNames"]
+        usr_watchlist = zip(usr_symbols, companyNames)
+    except:
+        usr_watchlist = None
+
+
+
+
+
+    context = {
+        "usr_watchlist": usr_watchlist,
+
+    }
+
+    html_template = loader.get_template( 'paper_trading.html' )
+    return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")
 def test(request):

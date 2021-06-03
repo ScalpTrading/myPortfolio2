@@ -1,0 +1,75 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Finance {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<div class="content" >
+
+		<!-- Page banner -->
+		<div class="panel-header bg-primary-gradient">
+			<div class="page-inner py-5">
+				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+					<div>
+						<h2 class="text-white pb-2 fw-bold"> <small> <a href="{% url 'home' %}"><i class="flaticon-home"></i></a> <i class="flaticon-right-arrow"></i> </small> Paper trading</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <!-- Page contents -->
+    <div class="page-inner mt--5">
+      <div class="row mt--2">
+
+        <!-- LHS widget -->
+        <div class="col-2">
+          <div class="card">
+
+            <!-- Card header -->
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title"> Watchlist </div>
+              </div>
+            </div>
+
+            <!-- Card contents: Watchlist symbols -->
+            <div class="card-body card-tools-still-right" id="watchlist_symbols">
+              {% for symbol, companyName in usr_watchlist %}
+                <!-- Is ID {{symbol}} correct? -->
+                <div class="d-flex bg-clr-hover" id="{{symbol}}" style="display: block">
+                  <div class="flex-1">
+                    <h6 class="fw-bold">{{symbol}} - {{companyName}}</h6>
+                    <!-- <h5 class="card-text">{{companyName}}</h5> -->
+                  </div>
+                  <!-- <div class="float-right align-self-center">
+										<h5> rmv </h5>
+									</div> -->
+                </div>
+                <div class="separator-dashed"></div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+
+	</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}
