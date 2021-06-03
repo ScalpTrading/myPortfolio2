@@ -24,6 +24,7 @@ urlpatterns = [
     #API routes
     path("watchlist/<str:symbol>", views.watchlist, name="watchlist"),
     path("buy", views.buy, name="buy"),
+    path("sell", views.sell, name="sell"),
 
 
 ]

@@ -263,7 +263,7 @@
 							<div class="card-body text-center" id="papertrading" style="display: block;">
 								<h3 class="b-b1 fw-bold" id="buy_header" style="display: block;"> Buy {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
 								<h3 class="b-b1 fw-bold" id="sell_header" style="display: none;"> Sell {{companyName}} - <small>$</small>{{latestPrice}}<small>USD</small></h3>
-								<h3 id="user_shares" id="user_shares"> Current investment: {{quantity}} shares </h3>
+								<h3 id="user_shares"> Current investment: {{quantity}} shares </h3>
 								<!-- <div class="card-text" id="user_shares"> Current position: <b>{{quantity}}</b> shares </div> -->
 								<div class="card-text"> Number of shares: </div>
 
@@ -405,7 +405,6 @@
 					time: 1000,
 				});
 
-
 		  });
 		}
 
@@ -475,7 +474,7 @@
 
 		})
 
-		// Paper trading: User to review and submit order
+		// Paper trading: BUY order
 		$('#review_order_buy').click(function(e) {
 			var symbol = document.getElementById('symbol').value;
 			var shares = document.getElementById('shares').value;
@@ -530,6 +529,7 @@
 							// Update share count
 							var new_quantity = parseInt(current_shares) + parseInt(shares);
 							document.getElementById('user_shares').innerHTML = 'Current investment: '+ new_quantity + ' shares';
+							document.getElementById('quantity').value = new_quantity;
 						}
 					})
 
@@ -537,6 +537,92 @@
 					swal.close();
 				}
 			});
+		});
+
+		// Paper trading: SELL order
+		$('#review_order_sell').click(function(e) {
+			var symbol = document.getElementById('symbol').value;
+			var shares = parseInt(document.getElementById('shares').value);
+			var share_price = parseFloat(document.getElementById('share_price').value);
+			var cash_balance = parseFloat(document.getElementById('cash_balance').value);
+			var shares_value = parseFloat(document.getElementById('shares_value_input').value);
+			var current_shares = parseInt(document.getElementById('quantity').value);
+
+			if (shares > current_shares) {
+				swal("Error!", "Insufficient shares owned", {
+					icon : "error",
+					buttons: {
+						confirm: {
+							className : 'btn btn-danger'
+						}
+					},
+				});
+			} else if (shares < 0) {
+				swal("Error!", "Incorrect shares input", {
+					icon : "error",
+					buttons: {
+						confirm: {
+							className : 'btn btn-danger'
+						}
+					},
+				});
+			} else {
+				swal({
+					title: 'Review order',
+					text: 'Available balance: $' + cash_balance + '\n Symbol: ' + symbol + '\n Share price: $' + share_price + '\n Number of shares: ' + shares + '\n Total: $' + shares_value,
+					type: 'warning',
+					buttons:{
+						confirm: {
+							text : 'Sell',
+							className : 'btn btn-success'
+						},
+						cancel: {
+							visible: true,
+							className: 'btn btn-danger'
+						}
+					}
+				}).then((Sell) => {
+					if (Sell) {
+						// POST request to urls /buy route
+						fetch('/sell', {
+							method: 'POST',
+							body: JSON.stringify({
+								symbol: symbol,
+								shares: shares,
+								share_price: share_price,
+								cash_balance: cash_balance,
+								shares_value: shares_value,
+							})
+						})
+						.then(response => response.json())
+						.then(result => {
+							// if trade completed succesfully
+							if ('message' in result) {
+								// Confirmation alert
+								swal({
+									title: 'Complete!',
+									text: 'Trade has been executed',
+									icon: "success",
+									type: 'success',
+									buttons : {
+										confirm: {
+											className : 'btn btn-success'
+										}
+									}
+								});
+								// Update share count
+								var new_quantity = parseInt(current_shares) - parseInt(shares);
+								document.getElementById('user_shares').innerHTML = 'Current investment: '+ new_quantity + ' shares';
+								document.getElementById('quantity').value = new_quantity;
+							}
+						})
+
+					} else {
+						swal.close();
+					}
+				});
+			}
+
 		});
 
 	</script>
