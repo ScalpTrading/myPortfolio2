@@ -33,16 +33,14 @@
 						<div class="card-header">
 							<div class="card-head-row card-tools-still-right">
                 <h4 class="card-title">{{companyName}}</h4>
-                <div class="card-tools">
 
+                <div class="card-tools">
 									<!-- User add symbol to watchlist -->
                   {% if already_exist %}
                     <button class="btn btn-icon btn-link btn-primary btn-xs" id="watchlist_btn" onclick="watchlist('{{symbol}}')"><span class="fas fa-bookmark"></span></button>
                   {% else %}
                     <button class="btn btn-icon btn-link btn-primary btn-xs" id="watchlist_btn" onclick="watchlist('{{symbol}}')"><span class="far fa-bookmark"></span></button>
                   {% endif %}
-
-
 									<button class="btn btn-icon btn-link btn-primary btn-xs" data-toggle="collapse" data-target="#data-collapse"><span class="fa fa-angle-down"></span></button>
                 </div>
 							</div>

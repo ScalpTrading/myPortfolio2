@@ -30,8 +30,12 @@
 
             <!-- Card header -->
             <div class="card-header">
-              <div class="card-head-row">
+              <div class="card-head-row card-tools-still-right">
                 <div class="card-title"> Watchlist </div>
+                <div class="card-tools">
+                  <!-- ******** TODO: When clicked, remove symbols from watchlist -->
+									<button class="btn btn-icon btn-link btn-primary btn-s" id="btn_watchlist_settings" onclick="#')"><span class="fas fa-cog"></span></button>
+								</div>
               </div>
             </div>
 
@@ -44,9 +48,6 @@
                     <h6 class="fw-bold">{{symbol}} - {{companyName}}</h6>
                     <!-- <h5 class="card-text">{{companyName}}</h5> -->
                   </div>
-                  <!-- <div class="float-right align-self-center">
-										<h5> rmv </h5>
-									</div> -->
                 </div>
                 <div class="separator-dashed"></div>
               {% endfor %}
