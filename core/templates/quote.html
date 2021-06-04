@@ -345,28 +345,6 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 	<script>
-		// Switch between US symbols and ETFs
-		function load_tickers(category) {
-			// Show US symbols
-			if (category == 'US') {
-				// Adjust display
-				document.querySelector('#default_US').style.display = 'block';
-				document.querySelector('#default_ETFs').style.display = 'none';
-				// Adjust buttons
-				document.getElementById('btn_US_tickers').className = 'btn btn-info btn-round btn-sm mr-1';
-				document.getElementById('btn_ETFs_tickers').className = 'btn btn-info btn-border btn-round btn-sm mr-1';
-			}
-			// Show ETFs
-			if (category == 'ETFs') {
-				// Adjust display
-				document.querySelector('#default_US').style.display = 'none';
-				document.querySelector('#default_ETFs').style.display = 'block';
-				// Adjust buttons
-				document.getElementById('btn_US_tickers').className = 'btn btn-info btn-border btn-round btn-sm mr-1';
-				document.getElementById('btn_ETFs_tickers').className = 'btn btn-info btn-round btn-sm mr-1';
-			}
-		}
-
 		// Add/remove symbol to/from user watchlist
 		function watchlist(symbol) {
 		  var watchlist_btn = document.querySelector(`#watchlist_btn`);

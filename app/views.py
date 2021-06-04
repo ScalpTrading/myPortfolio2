@@ -767,6 +767,7 @@ def paper_trading(request):
 
 
     context = {
+        "segment": "paper_trading",
         "usr_watchlist": usr_watchlist,
 
     }
