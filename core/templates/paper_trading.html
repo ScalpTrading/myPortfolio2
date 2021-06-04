@@ -33,7 +33,6 @@
               <div class="card-head-row card-tools-still-right">
                 <div class="card-title"> Watchlist </div>
                 <div class="card-tools">
-                  <!-- ******** TODO: When clicked, show remove symbol button -->
 									<button class="btn btn-icon btn-link btn-primary btn-s" id="btn_watchlist_settings" onclick="watchlist_settings()" style="display: block;">Edit</button>
                   <button class="btn btn-icon btn-link btn-primary btn-s" id="btn_watchlist_settings_done" onclick="watchlist_settings_done()" style="display: none;">Done</button>
 								</div>
@@ -57,6 +56,45 @@
                   <div class="separator-dashed"></div>
                 </div>
               {% endfor %}
+            </div>
+            <!-- Card contents: Watchlist symbols END  -->
+
+          </div>
+        </div>
+        <!-- LHS widget END -->
+
+        <!-- RHS widget -->
+        <div class="col-9">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"> Holdings </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="multi-filter-select" class="display table table-striped table-hover" >
+                  <thead>
+                    <tr>
+                      <th>Holdings</th>
+                      <th>Shares</th>
+                      <th>Total cost($)</th>
+                      <th>Current value</th>
+                      <th>Change ($)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for symbol, quantity, total_cost in holdings %}
+                    <tr>
+                      <td>{{symbol}}</td>
+                      <td>{{quantity}}</td>
+                      <td>${{total_cost}}</td>
+                      <td>Placeholder</td>
+                      <td>Placeholder</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+              </div>
             </div>
 
           </div>

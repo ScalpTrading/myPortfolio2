@@ -762,13 +762,32 @@ def paper_trading(request):
     except:
         usr_watchlist = None
 
+    # Logged in user's holdings
+    try:
+        symbols = Holdings.objects.filter(user=user).values('symbol')
+        holdings_symbols = []
+        for symbol in symbols:
+            holdings_symbols.append(symbol["symbol"])
 
+        quantities = Holdings.objects.filter(user=user).values('quantity')
+        holdings_quantities = []
+        for quantity in quantities:
+            holdings_quantities.append(quantity["quantity"])
 
+        totals = Holdings.objects.filter(user=user).values('total_amount')
+        holdings_totals = []
+        for total in totals:
+            holdings_totals.append(total["total_amount"])
 
+        holdings = zip(holdings_symbols, holdings_quantities, holdings_totals)
+
+    except:
+        holdings = None
 
     context = {
         "segment": "paper_trading",
         "usr_watchlist": usr_watchlist,
+        "holdings": holdings,
 
     }
 
