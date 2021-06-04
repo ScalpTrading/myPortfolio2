@@ -43,17 +43,19 @@
             <!-- Card contents: Watchlist symbols -->
             <div class="card-body card-tools-still-right" id="watchlist_symbols">
               {% for symbol, companyName in usr_watchlist %}
-                <!-- Is ID {{symbol}} correct? -->
-                <div class="d-flex bg-clr-hover" id="{{symbol}}" style="display: block">
-                  <div class="flex-1">
-                    <h6 class="fw-bold">{{symbol}} - {{companyName}}</h6>
+                <div id="watchlist-item-{{symbol}}" style="display: block;">
+                  <div class="d-flex bg-clr-hover">
+                    <!-- Symbol and name -->
+                    <div class="flex-1" >
+                      <h6 class="fw-bold">{{symbol}} - {{companyName}}</h6>
+                    </div>
+                    <!-- Button to remove symbol from watchlist -->
+                    <div class="card-tools watchlist-remove-btns" style="display: none;">
+                      <button class="btn btn-icon btn-link btn-danger btn-xs" id="remove-{{symbol}}" onclick="remove_from_watchlist('{{symbol}}')"><span class="far fa-trash-alt"></span></button>
+                    </div>
                   </div>
-                  <div class="card-tools watchlist-remove-btns" style="display: none;">
-                    <!-- ******** TODO: When clicked, remove symbols from watchlist -->
-  									<button class="btn btn-icon btn-link btn-danger btn-xs" id="remove-'{{symbol}}'" onclick="#')"><span class="far fa-trash-alt"></span></button>
-  								</div>
+                  <div class="separator-dashed"></div>
                 </div>
-                <div class="separator-dashed"></div>
               {% endfor %}
             </div>
 
@@ -95,6 +97,42 @@
       document.querySelectorAll('.card-tools.watchlist-remove-btns').forEach(elem => {
         elem.style.display = 'none';
       })
+    }
+
+    // Remove symbol from watchlist
+    function remove_from_watchlist(symbol) {
+
+      // POST request
+		  fetch(`/watchlist/${symbol}`, {
+		      method: 'POST'
+		  })
+		  .then(response => response.json())
+		  .then(result => {
+		    // Remove symbol from watchlist table
+		    if (result['message'] == `${symbol} removed from watchlist`) {
+          // TODO:
+          document.querySelector(`#watchlist-item-${symbol}`).style.display = 'none';
+		    }
+
+				// Display notification
+				var content = {};
+
+				content.title = result['user']+ "'s watchlist";
+				content.message = result['message'];
+				content.icon = 'flaticon-alarm-1';
+				content.target = '_blank';
+
+				$.notify(content,{
+					type: 'info',
+					placement: {
+						from: 'bottom',
+						align: 'right'
+					},
+					time: 1000,
+				});
+
+		  });
+
     }
 
   </script>
