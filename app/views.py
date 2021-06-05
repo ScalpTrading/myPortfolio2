@@ -781,6 +781,11 @@ def paper_trading(request):
 
         holdings = zip(holdings_symbols, holdings_quantities, holdings_totals)
 
+    # TODO: Get current value of holdings
+    # Add additional column for current % weight for each symbol?
+
+    #Other: remove 'cash balance' on paper trading page
+
     except:
         holdings = None
 
