@@ -780,13 +780,18 @@ def paper_trading(request):
             holdings_totals.append(total["total_amount"])
 
         # IEX Cloud API call for latest price for holdings symbols
-        holdings_latestPrice = []
+        holdings_latestPrices = []
         for i in range(len(holdings_symbols)):
             instrument = iex_lookup(holdings_symbols[i])
-            holdings_latestPrice.append(instrument["latestPrice"])
-            holdings_latestPrice[i] = holdings_latestPrice[i]*holdings_quantities[i]
+            holdings_latestPrices.append(instrument["latestPrice"])
+            holdings_latestPrices[i] = holdings_latestPrices[i]*holdings_quantities[i]
 
-        holdings = zip(holdings_symbols, holdings_quantities, holdings_totals, holdings_latestPrice)
+        # Chage in value
+        value_changes = []
+        for i in range(len(holdings_latestPrices)):
+            value_changes.append(round(float(holdings_latestPrices[i]) - float(holdings_totals[i]),2))
+
+        holdings = zip(holdings_symbols, holdings_quantities, holdings_totals, holdings_latestPrices, value_changes)
 
 
     # TODO: Get current value of holdings
