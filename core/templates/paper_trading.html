@@ -82,12 +82,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for symbol, quantity, total_cost in holdings %}
+                    {% for symbol, quantity, total_cost, current_value in holdings %}
                     <tr>
                       <td>{{symbol}}</td>
                       <td>{{quantity}}</td>
                       <td>${{total_cost}}</td>
-                      <td>Placeholder</td>
+                      <td>${{current_value}}</td>
                       <td>Placeholder</td>
                     </tr>
                     {% endfor %}

@@ -779,7 +779,15 @@ def paper_trading(request):
         for total in totals:
             holdings_totals.append(total["total_amount"])
 
-        holdings = zip(holdings_symbols, holdings_quantities, holdings_totals)
+        # IEX Cloud API call for latest price for holdings symbols
+        holdings_latestPrice = []
+        for i in range(len(holdings_symbols)):
+            instrument = iex_lookup(holdings_symbols[i])
+            holdings_latestPrice.append(instrument["latestPrice"])
+            holdings_latestPrice[i] = holdings_latestPrice[i]*holdings_quantities[i]
+
+        holdings = zip(holdings_symbols, holdings_quantities, holdings_totals, holdings_latestPrice)
+
 
     # TODO: Get current value of holdings
     # Add additional column for current % weight for each symbol?
