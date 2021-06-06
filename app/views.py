@@ -798,6 +798,7 @@ def paper_trading(request):
     # Add additional column for current % weight for each symbol?
 
     #Other: remove 'cash balance' on paper trading page
+    # Other: Holdings page, on click go to quote page for symbol
 
     except:
         holdings = None

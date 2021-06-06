@@ -88,7 +88,12 @@
                       <td>{{quantity}}</td>
                       <td>${{total_cost}}</td>
                       <td>${{current_value}}</td>
-                      <td>${{value_change}}</td>
+                      {% if value_change > 0 or value_change == 0%}
+                        <td class="text-success">${{value_change}}</td>
+        							{% else %}
+        								<td class="text-danger">${{value_change}}</td>
+        							{% endif %}
+
                     </tr>
                     {% endfor %}
                   </tbody>
