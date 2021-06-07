@@ -3,7 +3,7 @@
 {% block title %} Finance {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %} {% endblock stylesheets %}
 
 {% block content %}
 
@@ -42,8 +42,13 @@
             <!-- Card contents: Watchlist symbols -->
             <div class="card-body card-tools-still-right" id="watchlist_symbols">
               {% for symbol, companyName in usr_watchlist %}
+                <!-- Hidden form submission, linking ticker to quote page -->
+                <form id="quote-{{symbol}}" action="{% url 'quote' %}" method="get">
+                  <input type="hidden" name="symbol" value="{{symbol}}">
+                </form>
+
                 <div id="watchlist-item-{{symbol}}" style="display: block;">
-                  <div class="d-flex bg-clr-hover">
+                  <div class="d-flex bg-clr-hover" onclick="document.getElementById('quote-{{symbol}}').submit();">
                     <!-- Symbol and name -->
                     <div class="flex-1" >
                       <h6 class="fw-bold">{{symbol}} - {{companyName}}</h6>
@@ -85,7 +90,7 @@
                   <tbody>
                     {% for symbol, quantity, total_cost, current_value, value_change, current_weight in holdings %}
                     <tr>
-                      <td>{{symbol}}</td>
+                      <td class="deco-none" onclick="document.getElementById('quote-{{symbol}}').submit();">{{symbol}}</td>
                       <td>{{quantity}}</td>
                       <td>${{total_cost}}</td>
                       <td>${{current_value}}</td>
