@@ -793,20 +793,23 @@ def paper_trading(request):
 
         holdings = zip(holdings_symbols, holdings_quantities, holdings_totals, holdings_latestPrices, value_changes)
 
+        # Obtain user's current cash balance
+        cash_balance = Cash.objects.get(user=user).cash_balance
 
-    # TODO: Get current value of holdings
-    # Add additional column for current % weight for each symbol?
 
-    #Other: remove 'cash balance' on paper trading page
-    # Other: Holdings page, on click go to quote page for symbol
+    # TODO: Add additional column for current % weight for each symbol?
+
+    # TODO: Holdings page, on click go to quote page for symbol
 
     except:
         holdings = None
+        cash_balance = None
 
     context = {
         "segment": "paper_trading",
         "usr_watchlist": usr_watchlist,
         "holdings": holdings,
+        "cash_balance": cash_balance,
 
     }
 
