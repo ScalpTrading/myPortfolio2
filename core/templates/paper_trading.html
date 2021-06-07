@@ -78,16 +78,18 @@
                       <th>Shares</th>
                       <th>Total cost ($)</th>
                       <th>Current value ($)</th>
+                      <th>Current weight</th>
                       <th>Change ($)</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for symbol, quantity, total_cost, current_value, value_change in holdings %}
+                    {% for symbol, quantity, total_cost, current_value, value_change, current_weight in holdings %}
                     <tr>
                       <td>{{symbol}}</td>
                       <td>{{quantity}}</td>
                       <td>${{total_cost}}</td>
                       <td>${{current_value}}</td>
+                      <td>{{current_weight}}%</td>
                       {% if value_change > 0 or value_change == 0%}
                         <td class="text-success">${{value_change}}</td>
         							{% else %}
@@ -100,6 +102,7 @@
                       <td>-</td>
                       <td>-</td>
                       <td>${{cash_balance}}</td>
+                      <td>-</td>
                       <td>-</td>
                     </tr>
                   </tbody>

@@ -779,7 +779,7 @@ def paper_trading(request):
         for total in totals:
             holdings_totals.append(total["total_amount"])
 
-        # IEX Cloud API call for latest price for holdings symbols
+        # Current value of holding
         holdings_latestPrices = []
         for i in range(len(holdings_symbols)):
             instrument = iex_lookup(holdings_symbols[i])
@@ -791,26 +791,29 @@ def paper_trading(request):
         for i in range(len(holdings_latestPrices)):
             value_changes.append(round(float(holdings_latestPrices[i]) - float(holdings_totals[i]),2))
 
-        holdings = zip(holdings_symbols, holdings_quantities, holdings_totals, holdings_latestPrices, value_changes)
-
         # Obtain user's current cash balance
-        cash_balance = Cash.objects.get(user=user).cash_balance
+        cash_balance = float(Cash.objects.get(user=user).cash_balance)
 
+        # Current weight as a % of total portfolio value
+        current_weight = []
+        portfolio_value = round(sum(holdings_latestPrices, cash_balance),2)
+        for value in holdings_latestPrices:
+            current_weight.append(round((value/portfolio_value)*100,2))
 
-    # TODO: Add additional column for current % weight for each symbol?
+        holdings = zip(holdings_symbols, holdings_quantities, holdings_totals, holdings_latestPrices, value_changes, current_weight)
 
     # TODO: Holdings page, on click go to quote page for symbol
 
     except:
         holdings = None
         cash_balance = None
+        portfolio_value = None
 
     context = {
         "segment": "paper_trading",
         "usr_watchlist": usr_watchlist,
         "holdings": holdings,
         "cash_balance": cash_balance,
-
     }
 
     html_template = loader.get_template( 'paper_trading.html' )
