@@ -455,7 +455,6 @@
 			var symbol = document.getElementById('symbol').value;
 			var shares = parseInt(document.getElementById('shares').value);
 			var share_price = parseFloat(document.getElementById('share_price').value);
-			var cash_balance = parseFloat(document.getElementById('cash_balance').value);
 			var shares_value = parseFloat(document.getElementById('shares_value_input').value);
 			var current_shares = parseInt(document.getElementById('quantity').value);
 
@@ -471,7 +470,7 @@
 			} else {
 				swal({
 					title: 'Review order',
-					text: 'Available balance: $' + cash_balance + '\n Symbol: ' + symbol + '\n Share price: $' + share_price + '\n Number of shares: ' + shares + '\n Total: $' + shares_value,
+					text: 'Symbol: ' + symbol + '\n Share price: $' + share_price + '\n Number of shares: ' + shares + '\n Total: $' + shares_value,
 					type: 'warning',
 					buttons:{
 						confirm: {
@@ -492,7 +491,6 @@
 								symbol: symbol,
 								shares: shares,
 								share_price: share_price,
-								cash_balance: cash_balance,
 								shares_value: shares_value,
 							})
 						})
@@ -533,7 +531,6 @@
 			var symbol = document.getElementById('symbol').value;
 			var shares = parseInt(document.getElementById('shares').value);
 			var share_price = parseFloat(document.getElementById('share_price').value);
-			var cash_balance = parseFloat(document.getElementById('cash_balance').value);
 			var shares_value = parseFloat(document.getElementById('shares_value_input').value);
 			var current_shares = parseInt(document.getElementById('quantity').value);
 
@@ -558,7 +555,7 @@
 			} else {
 				swal({
 					title: 'Review order',
-					text: 'Available balance: $' + cash_balance + '\n Symbol: ' + symbol + '\n Share price: $' + share_price + '\n Number of shares: ' + shares + '\n Total: $' + shares_value,
+					text: 'Symbol: ' + symbol + '\n Share price: $' + share_price + '\n Number of shares: ' + shares + '\n Total: $' + shares_value,
 					type: 'warning',
 					buttons:{
 						confirm: {
@@ -579,7 +576,6 @@
 								symbol: symbol,
 								shares: shares,
 								share_price: share_price,
-								cash_balance: cash_balance,
 								shares_value: shares_value,
 							})
 						})

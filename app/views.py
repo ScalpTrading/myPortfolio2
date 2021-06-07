@@ -693,7 +693,7 @@ def buy(request):
         holding.save()
 
     # Update user cash balance
-    cash_balance = data.get("cash_balance", "")
+    cash_balance = float(Cash.objects.get(user=request.user).cash_balance)
     new_cash_balance = cash_balance - shares_value
     Cash.objects.filter(user=request.user).update(cash_balance=new_cash_balance)
 
@@ -737,7 +737,7 @@ def sell(request):
         return JsonResponse({"error": "User does not hold position in symbol"}, status=401)
 
     # Update user cash balance
-    cash_balance = data.get("cash_balance", "")
+    cash_balance = float(Cash.objects.get(user=request.user).cash_balance)
     new_cash_balance = cash_balance + shares_value
     Cash.objects.filter(user=request.user).update(cash_balance=new_cash_balance)
 
