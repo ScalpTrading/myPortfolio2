@@ -455,10 +455,11 @@
 			var symbol = document.getElementById('symbol').value;
 			var shares = parseInt(document.getElementById('shares').value);
 			var share_price = parseFloat(document.getElementById('share_price').value);
+			var cash_balance = parseFloat(document.getElementById('cash_balance').value);
 			var shares_value = parseFloat(document.getElementById('shares_value_input').value);
 			var current_shares = parseInt(document.getElementById('quantity').value);
 
-			if (shares < 0) {
+			if (shares < 0 || shares_value > cash_balance) {
 				swal("Error!", "Incorrect shares input", {
 					icon : "error",
 					buttons: {
@@ -491,6 +492,7 @@
 								symbol: symbol,
 								shares: shares,
 								share_price: share_price,
+								// cash_balance: cash_balance,
 								shares_value: shares_value,
 							})
 						})
@@ -531,6 +533,7 @@
 			var symbol = document.getElementById('symbol').value;
 			var shares = parseInt(document.getElementById('shares').value);
 			var share_price = parseFloat(document.getElementById('share_price').value);
+			// var cash_balance = parseFloat(document.getElementById('cash_balance').value);
 			var shares_value = parseFloat(document.getElementById('shares_value_input').value);
 			var current_shares = parseInt(document.getElementById('quantity').value);
 
@@ -576,6 +579,7 @@
 								symbol: symbol,
 								shares: shares,
 								share_price: share_price,
+								// cash_balance: cash_balance,
 								shares_value: shares_value,
 							})
 						})
