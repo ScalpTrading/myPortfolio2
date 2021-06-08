@@ -802,8 +802,6 @@ def paper_trading(request):
 
         holdings = zip(holdings_symbols, holdings_quantities, holdings_totals, holdings_latestPrices, value_changes, current_weight)
 
-    # TODO: Holdings page, on click go to quote page for symbol
-
     except:
         holdings = None
         cash_balance = None
