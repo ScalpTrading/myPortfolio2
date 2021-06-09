@@ -794,7 +794,7 @@ def paper_trading(request):
         # Obtain user's current cash balance
         cash_balance = float(Cash.objects.get(user=user).cash_balance)
 
-        # Current weight as a % of total portfolio value
+        # Current weight as % of total portfolio value
         current_weight = []
         portfolio_value = round(sum(holdings_latestPrices, cash_balance),2)
         for value in holdings_latestPrices:
