@@ -12,5 +12,5 @@ Application built with Python, Django, JavaScript, HTML, BootStrap5.0. Database:
 
 ## Demo
 Demo 1: Index page with financial news and market overview
-![Demo](demo_1.gif)
+![Demo](demo 1.gif)
 <br><br>
