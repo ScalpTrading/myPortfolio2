@@ -11,6 +11,20 @@ The main functionalities are as follows.
 Application built with Python, Django, JavaScript, HTML, BootStrap5.0. Database: SQLite.
 
 ## Demo
-Demo 1: Index page with financial news and market overview
-![Demo](demo_1.gif)
+Demo 1: User dashboard
+![Demo](Demo_1.gif)
 <br><br>
+Demo 2: Regional news 
+![Demo](Demo_2.gif)
+<br><br>
+Demo 3: Financial news and market overview
+![Demo](Demo_3.gif)
+<br><br>
+Demo 4: Company-specific data
+![Demo](Demo_4.gif)
+<br><br>
+Demo 5: Paper trading overview
+![Demo](Demo_5.gif)
+<br><br>
+
+
