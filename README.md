@@ -12,23 +12,23 @@ Application built with Python, Django, JavaScript, HTML, BootStrap5.0. Database:
 
 ## Demo
 Demo 1: User dashboard
-<br><br>
+<br>
 ![Demo](Demo_1.gif)
 <br><br>
 Demo 2: Regional news 
-<br><br>
+<br>
 ![Demo](Demo_2.gif)
 <br><br>
 Demo 3: Financial news and market overview
-<br><br>
+<br>
 ![Demo](Demo_3.gif)
 <br><br>
 Demo 4: Company-specific data
-<br><br>
+<br>
 ![Demo](Demo_4.gif)
 <br><br>
 Demo 5: Paper trading overview
-<br><br>
+<br>
 ![Demo](Demo_5.gif)
 <br><br>
 
