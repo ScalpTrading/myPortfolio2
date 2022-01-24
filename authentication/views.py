@@ -14,6 +14,7 @@ from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm
 
 # Test (?)
+# Import Cash model for user balance
 from app.models import Cash
 
 def login_view(request):
